@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Semáforo de riesgo · contrato_ejemplo.pdf</title>
+<style>
+  :root {
+    --bg: #f5f6f8; --surface: #ffffff; --text: #1d2330; --muted: #5d6676; --border: #e2e5ea;
+    --rojo: #c62828; --rojo-bg: #fdecec; --amarillo: #a66a00; --amarillo-bg: #fff6dc;
+    --verde: #2e7d32; --verde-bg: #e9f5ea; --accent: #2f5bd3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12151b; --surface: #1b2029; --text: #e6e9ef; --muted: #9aa3b2; --border: #2c3340;
+      --rojo: #ff6b6b; --rojo-bg: #3a1f22; --amarillo: #f2c14e; --amarillo-bg: #3a3120;
+      --verde: #6fcf74; --verde-bg: #1f3323; --accent: #7aa2ff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--text); line-height: 1.5; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 24px 16px 48px; }
+  header h1 { margin: 0 0 4px; font-size: 1.5rem; }
+  header p { margin: 0; color: var(--muted); font-size: .9rem; }
+  .global { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; padding: 6px 12px;
+            border-radius: 999px; font-weight: 600; font-size: .9rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 24px 0; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+  .card .label { color: var(--muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+  .card .value { font-size: 2rem; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .card .sub { color: var(--muted); font-size: .85rem; }
+  .card.rojo { border-top: 4px solid var(--rojo); }
+  .card.amarillo { border-top: 4px solid var(--amarillo); }
+  .card.verde { border-top: 4px solid var(--verde); }
+  .card.score { border-top: 4px solid var(--accent); }
+  .bar { display: flex; height: 10px; border-radius: 999px; overflow: hidden; background: var(--border); margin-top: 10px; }
+  .bar span { display: block; height: 100%; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .filters button { border: 1px solid var(--border); background: var(--surface); color: var(--text);
+                    padding: 6px 14px; border-radius: 999px; cursor: pointer; font: inherit; font-size: .85rem; }
+  .filters button[aria-pressed="true"] { background: var(--text); color: var(--surface); border-color: var(--text); }
+  details { background: var(--surface); border: 1px solid var(--border); border-left: 6px solid; border-radius: 10px;
+            margin-bottom: 10px; }
+  details.rojo { border-left-color: var(--rojo); }
+  details.amarillo { border-left-color: var(--amarillo); }
+  details.verde { border-left-color: var(--verde); }
+  summary { cursor: pointer; list-style: none; padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
+  summary::-webkit-details-marker { display: none; }
+  summary .id { font-weight: 600; white-space: nowrap; }
+  summary .title { flex: 1; min-width: 0; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pill { font-size: .75rem; font-weight: 600; padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+  .pill.rojo { color: var(--rojo); background: var(--rojo-bg); }
+  .pill.amarillo { color: var(--amarillo); background: var(--amarillo-bg); }
+  .pill.verde { color: var(--verde); background: var(--verde-bg); }
+  .body { padding: 0 16px 16px; }
+  .body blockquote { margin: 0 0 12px; padding: 10px 14px; background: var(--bg); border-radius: 8px; }
+  .body dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 0; font-size: .9rem; }
+  .body dt { color: var(--muted); }
+  .body dd { margin: 0; }
+  footer { margin-top: 32px; color: var(--muted); font-size: .8rem; }
+  @media (max-width: 560px) { summary { flex-wrap: wrap; } summary .title { flex-basis: 100%; order: 3; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>contrato_ejemplo.pdf</h1>
+    <p>Reporte de riesgo contractual · 2026-10-27 23:37 · 10 cláusulas analizadas</p>
+    <div class="global pill rojo">Nivel global: Alto riesgo</div>
+  </header>
+
+  <section class="cards" aria-label="Resumen de alertas">
+    <div class="card score">
+      <div class="label">Score de riesgo</div>
+      <div class="value">40.0%</div>
+      <div class="sub">Cláusulas en rojo o amarillo · ponderado 35.0</div>
+      <div class="bar" role="img" aria-label="Distribución por color">
+        <span style="width: 30.0%; background: var(--rojo)"></span>
+        <span style="width: 10.0%; background: var(--amarillo)"></span>
+        <span style="width: 60.0%; background: var(--verde)"></span>
+      </div>
+    </div>
+    
+    <div class="card rojo">
+      <div class="label">Alto riesgo</div>
+      <div class="value">3</div>
+      <div class="sub">30.0% del contrato</div>
+    </div>
+    
+    <div class="card amarillo">
+      <div class="label">Riesgo moderado</div>
+      <div class="value">1</div>
+      <div class="sub">10.0% del contrato</div>
+    </div>
+    
+    <div class="card verde">
+      <div class="label">Normal</div>
+      <div class="value">6</div>
+      <div class="sub">60.0% del contrato</div>
+    </div>
+    
+  </section>
+
+  <div class="filters" role="group" aria-label="Filtrar cláusulas">
+    <button type="button" data-filter="todos" aria-pressed="true">Todas</button>
+    
+    <button type="button" data-filter="rojo" aria-pressed="false">Alto riesgo (3)</button>
+    
+    <button type="button" data-filter="amarillo" aria-pressed="false">Riesgo moderado (1)</button>
+    
+    <button type="button" data-filter="verde" aria-pressed="false">Normal (6)</button>
+    
+  </div>
+
+  <section id="clausulas">
+    
+    <details class="verde" data-nivel="verde" >
+      <summary>
+        <span class="id">PREÁMBULO</span>
+        <span class="title">CONTRATO DE OBRA PÚBLICA No. 045 DE 2026 Entre los suscritos, la Alcaldía Municipal de Ejemplo y Construcciones Demo S.A.S., se celebra el presente contrato que se regirá por las siguientes cláusulas:</span>
+        <span class="pill verde">Normal</span>
+      </summary>
+      <div class="body">
+        <blockquote>CONTRATO DE OBRA PÚBLICA No. 045 DE 2026 Entre los suscritos, la Alcaldía Municipal de Ejemplo y Construcciones Demo S.A.S., se celebra el presente contrato que se regirá por las siguientes cláusulas:</blockquote>
+        <dl>
+          <dt>Evaluación</dt><dd>No se identificaron riesgos.</dd>
+          
+          <dt>Explicación</dt><dd>Sin indicadores de riesgo.</dd>
+          
+        </dl>
+      </div>
+    </details>
+    
+    <details class="verde" data-nivel="verde" >
+      <summary>
+        <span class="id">CLÁUSULA PRIMERA</span>
+        <span class="title">OBJETO</span>
+        <span class="pill verde">Normal</span>
+      </summary>
+      <div class="body">
+        <blockquote>El contratista se obliga a ejecutar la construcción del puente vehicular sobre la quebrada La Honda, de acuerdo con los planos y especificaciones técnicas anexas.</blockquote>
+        <dl>
+          <dt>Evaluación</dt><dd>No se identificaron riesgos.</dd>
+          
+          <dt>Explicación</dt><dd>Sin indicadores de riesgo.</dd>
+          
+        </dl>
+      </div>
+    </details>
+    
+    <details class="rojo" data-nivel="rojo" open>
+      <summary>
+        <span class="id">CLÁUSULA SEGUNDA</span>
+        <span class="title">VALOR</span>
+        <span class="pill rojo">Alto riesgo</span>
+      </summary>
+      <div class="body">
+        <blockquote>El contratista acepta que el precio pactado es fijo e inamovible, renunciando a cualquier reajuste por incremento en el costo de los materiales.</blockquote>
+        <dl>
+          <dt>Evaluación</dt><dd>Riesgo en categoría crítica: Pago.</dd>
+          <dt>Categoría</dt><dd>Pago</dd>
+          <dt>Explicación</dt><dd>Patrones detectados: precio\b.{0,25}\bfij[oa]; inamovible; renunci\w*\s+a\s+(cualquier|todo)\s+reajuste</dd>
+          
+        </dl>
+      </div>
+    </details>
+    
+    <details class="verde" data-nivel="verde" >
+      <summary>
+        <span class="id">CLÁUSULA TERCERA</span>
+        <span class="title">FORMA DE PAGO</span>
+        <span class="pill verde">Normal</span>
+      </summary>
+      <div class="body">
+        <blockquote>El pago se realizará dentro de los 30 días siguientes a la presentación de la factura con el acta de avance aprobada por la interventoría.</blockquote>
+        <dl>
+          <dt>Evaluación</dt><dd>No se identificaron riesgos.</dd>
+          
+          <dt>Explicación</dt><dd>Sin indicadores de riesgo.</dd>
+          
+        </dl>
+      </div>
+    </details>
+    
+    <details class="verde" data-nivel="verde" >
+      <summary>
+        <span class="id">CLÁUSULA CUARTA</span>
+        <span class="title">PLAZO</span>
+        <span class="pill verde">Normal</span>
+      </summary>
+      <div class="body">
+        <blockquote>El plazo de ejecución será de seis meses contados a partir de la firma del acta de inicio.</blockquote>
+        <dl>
+          <dt>Evaluación</dt><dd>No se identificaron riesgos.</dd>
+          
+          <dt>Explicación</dt><dd>Sin indicadores de riesgo.</dd>
+          
+        </dl>
+      </div>
+    </details>
+    
+    <details class="amarillo" data-nivel="amarillo" >
+      <summary>
+        <span class="id">CLÁUSULA QUINTA</span>
+        <span class="title">MULTAS</span>
+        <span class="pill amarillo">Riesgo moderado</span>
+      </summary>
+      <div class="body">
+        <blockquote>Por cada día de retraso en la entrega de la obra, el contratista pagará una penalidad equivalente al tres por ciento del valor total del contrato.</blockquote>
+        <dl>
+          <dt>Evaluación</dt><dd>Riesgo en categoría menor: Tiempo.</dd>
+          <dt>Categoría</dt><dd>Tiempo</dd>
+          <dt>Explicación</dt><dd>Patrones detectados: penalidad; por\s+cada\s+d[íi]a\s+de\s+(retraso|atraso|demora)</dd>
+          
+        </dl>
+      </div>
+    </details>
+    
+    <details class="rojo" data-nivel="rojo" open>
+      <summary>
+        <span class="id">CLÁUSULA SEXTA</span>
+        <span class="title">INDEMNIDAD</span>
+        <span class="pill rojo">Alto riesgo</span>
+      </summary>
+      <div class="body">
+        <blockquote>El contratista mantendrá indemne a la entidad de cualquier reclamación de terceros derivada de la ejecución de la obra.</blockquote>
+        <dl>
+          <dt>Evaluación</dt><dd>Riesgo en categoría crítica: Roles y responsabilidades.</dd>
+          <dt>Categoría</dt><dd>Roles y responsabilidades</dd>
+          <dt>Explicación</dt><dd>Patrones detectados: indemne</dd>
+          
+        </dl>
+      </div>
+    </details>
+    
+    <details class="verde" data-nivel="verde" >
+      <summary>
+        <span class="id">CLÁUSULA SÉPTIMA</span>
+        <span class="title">SEGURIDAD</span>
+        <span class="pill verde">Normal</span>
+      </summary>
+      <div class="body">
+        <blockquote>El personal del contratista deberá usar elementos de protección personal y estar afiliado a la ARL durante toda la obra.</blockquote>
+        <dl>
+          <dt>Evaluación</dt><dd>No se identificaron riesgos.</dd>
+          
+          <dt>Explicación</dt><dd>Sin indicadores de riesgo.</dd>
+          
+        </dl>
+      </div>
+    </details>
+    
+    <details class="rojo" data-nivel="rojo" open>
+      <summary>
+        <span class="id">CLÁUSULA OCTAVA</span>
+        <span class="title">TERMINACIÓN</span>
+        <span class="pill rojo">Alto riesgo</span>
+      </summary>
+      <div class="body">
+        <blockquote>La entidad podrá dar por terminado el contrato de manera unilateral en cualquier momento, sin necesidad de indemnización.</blockquote>
+        <dl>
+          <dt>Evaluación</dt><dd>Riesgo en categoría crítica: Procedimiento.</dd>
+          <dt>Categoría</dt><dd>Procedimiento</dd>
+          <dt>Explicación</dt><dd>Patrones detectados: termin\w*.{0,40}unilateral; sin\s+(necesidad\s+de\s+)?.{0,30}indemnizaci[óo]n</dd>
+          
+        </dl>
+      </div>
+    </details>
+    
+    <details class="verde" data-nivel="verde" >
+      <summary>
+        <span class="id">CLÁUSULA NOVENA</span>
+        <span class="title">DEFINICIONES</span>
+        <span class="pill verde">Normal</span>
+      </summary>
+      <div class="body">
+        <blockquote>Se considera Interventoría a la persona natural o jurídica designada por la entidad para supervisar la ejecución de los trabajos.</blockquote>
+        <dl>
+          <dt>Evaluación</dt><dd>No se identificaron riesgos.</dd>
+          
+          <dt>Explicación</dt><dd>Sin indicadores de riesgo.</dd>
+          
+        </dl>
+      </div>
+    </details>
+    
+  </section>
+
+  <footer>
+    Este reporte es una primera capa de revisión automática y no reemplaza la revisión de un abogado.
+  </footer>
+</div>
+<script>
+  // Filtro por color (sin dependencias externas).
+  document.querySelectorAll(".filters button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var filtro = btn.dataset.filter;
+      document.querySelectorAll(".filters button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b === btn));
+      });
+      document.querySelectorAll("#clausulas details").forEach(function (d) {
+        d.hidden = filtro !== "todos" && d.dataset.nivel !== filtro;
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+{
+ "9d9209a2084b4afa2e548561": {
+  "es_riesgo": true,
+  "categoria": "pago",
+  "razon": "Imparte al contratista el riesgo total de variaciones en los costos de insumos al fijar un precio inamovible sin posibilidad de reajuste, lo que puede generar pérdidas económicas."
+ },
+ "ca3fbbc6d5043dff77917800": {
+  "es_riesgo": true,
+  "categoria": "pago",
+  "razon": "Traslada al contratista la incertidumbre y posible retraso de hasta 180 días sin intereses, lo que afecta su flujo de caja y no compensa la demora"
+ },
+ "9a8914e22e9196af3bb993d8": {
+  "es_riesgo": false,
+  "categoria": "pago",
+  "razon": "Establece un plazo de pago razonable de 30 días condicionado a la aprobación del acta de avance, práctica habitual sin imponer cargas desproporcionadas al contratista."
+ },
+ "8e9d2a17cacdf117b904c15b": {
+  "es_riesgo": true,
+  "categoria": "tiempo",
+  "razon": "Penalidad del 3% del valor total del contrato por día de retraso es desproporcionada y genera una carga económica excesiva para el contratista"
+ },
+ "5119a8249955b499bfa7cc8a": {
+  "es_riesgo": false,
+  "categoria": "tiempo",
+  "razon": "Establece un plazo de ejecución estándar sin penalizaciones ni condiciones desproporcionadas, por lo que no representa un riesgo contractual para la parte ejecutora."
+ },
+ "4a6205e3e482687884a1386f": {
+  "es_riesgo": true,
+  "categoria": "procedimiento",
+  "razon": "Otorga a la entidad contratante la facultad de terminar el contrato unilateralmente y sin indemnización, trasladando todo el riesgo de interrupción al contratista sin compensación"
+ },
+ "470bfabd194da6d6a0e0578c": {
+  "es_riesgo": true,
+  "categoria": "procedimiento",
+  "razon": "Limita la capacidad del contratista de ceder o subcontratar sin autorización previa, creando incertidumbre y posible imposibilidad de cumplir con la obra si la autorización es denegada."
+ },
+ "8d9ede491efb0572235e8dcd": {
+  "es_riesgo": false,
+  "categoria": "procedimiento",
+  "razon": "Exige que cualquier cambio en especificaciones técnicas se haga por escrito y con firma de ambas partes, lo cual es una práctica estándar y equilibrada que protege a ambas partes sin imponer cargas desproporcionadas."
+ },
+ "4c6256c91b3b2fabe48212da": {
+  "es_riesgo": true,
+  "categoria": "pago",
+  "razon": "Retención del 50% del pago durante un año después de la entrega, sin compensación ni intereses, genera una carga financiera desproporcionada y gran incertidumbre para el vendedor."
+ },
+ "1db6d2ea7371e50662a380d4": {
+  "es_riesgo": false,
+  "categoria": "pago",
+  "razon": "Establece el pago del 50% restante al momento de la entrega del bien en las instalaciones del comprador, lo cual es una condición de pago habitual y no traslada cargas desproporcionadas al contratista"
+ },
+ "5a9f3148706c9e0bbbc837bc": {
+  "es_riesgo": true,
+  "categoria": "tiempo",
+  "razon": "Penaliza al proveedor por mora con pérdida del derecho a cobrar y asume costos de compra a terceros, carga desproporcionada y sin compensación"
+ },
+ "04f96e5dbfd8377f6b6ff7b7": {
+  "es_riesgo": false,
+  "categoria": "tiempo",
+  "razon": "Establece horarios de entrega razonables y sin sanciones, lo que no traslada cargas desproporcionadas al ejecutor."
+ },
+ "72b746bf1a9c727fc836a1ec": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Imparte al proveedor una responsabilidad exclusiva e ilimitada por todo daño, incluidos indirectos y lucro cesante, sin límites ni compensación, lo que es desproporcionado y genera alto riesgo contractual."
+ },
+ "ce5e31ddceebd1c60ca6b639": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Imparte al proveedor la carga total de los costos de sustitución, desmontaje, transporte y reinstalación de insumos defectuosos, sin limitación ni contraprestación, generando un riesgo económico desproporcionado."
+ },
+ "0cd2fe5c0ebcd5b74d04ecd9": {
+  "es_riesgo": false,
+  "categoria": "procedimiento",
+  "razon": "Establece un control de calidad estándar mediante un supervisor del comprador; no impone cargas desproporcionadas ni limita derechos del contratista."
+ },
+ "8065aa54bdf576ba70d2dabd": {
+  "es_riesgo": false,
+  "categoria": "pago",
+  "razon": "Exige que las facturas electrónicas cumplan la normativa legal para su tramitación, requisito estándar y equilibrado sin trasladar cargas desproporcionadas al ejecutor"
+ },
+ "b79e1a6be31266b62f1e616b": {
+  "es_riesgo": true,
+  "categoria": "pago",
+  "razon": "Obliga al subcontratista a ejecutar trabajos adicionales a precio fijo sin ajuste por mayor complejidad o cantidades, trasladando el riesgo de costos al ejecutor"
+ },
+ "43900462cfb0b8cd6e1405cd": {
+  "es_riesgo": true,
+  "categoria": "procedimiento",
+  "razon": "Obliga al subcontratista a ejecutar actividades complementarias sin reconocimiento económico, trasladando costos y riesgos de forma desproporcionada y sin contraprestación."
+ },
+ "e678b0bfd000a44b5980a53f": {
+  "es_riesgo": true,
+  "categoria": "procedimiento",
+  "razon": "Obliga a resolver controversias solo mediante arreglo directo entre los directores del proyecto, limitando al subcontratista el acceso a mecanismos imparciales de solución y pudiendo generar desequilibrio y retrasos en la resolución."
+ },
+ "3899f3f7cc66c7d4927c1258": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Imparte al subcontratista la obligación de indemnizar al contratista por cualquier reclamo laboral, tributario o civil de sus trabajadores, generando una carga desproporcionada y sin límite de responsabilidad"
+ },
+ "48b16c8c8404af1de07768c3": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Impone responsabilidad ilimitada al subcontratista por daños de sus empleados, sin límite ni compensación, lo que traslada un riesgo desproporcionado de pérdidas."
+ },
+ "139fbc99e5e838c18f7b94e6": {
+  "es_riesgo": false,
+  "categoria": "roles_responsabilidades",
+  "razon": "La cláusula asigna a cada parte la responsabilidad por sus propios empleados, lo cual es una distribución estándar de obligaciones laborales y no impone cargas desproporcionadas ni incertidumbre al ejecutor."
+ },
+ "c5f026ac43d85639daba4405": {
+  "es_riesgo": false,
+  "categoria": "tiempo",
+  "razon": "La cláusula permite ajustar el cronograma por mutuo acuerdo ante fuerza mayor o caso fortuito, lo que es una disposición estándar y equilibrada que no impone cargas desproporcionadas al ejecutor."
+ },
+ "acbe02cff1bf6caccf3d3b8d": {
+  "es_riesgo": true,
+  "categoria": "procedimiento",
+  "razon": "Permite al comprador cambiar unilateralmente las especificaciones sin ajustar el precio ni el plazo, trasladando costos y retrasos al contratista sin compensación."
+ },
+ "a8ac25912451a25802d5c97b": {
+  "es_riesgo": false,
+  "categoria": "procedimiento",
+  "razon": "Establece un requisito de presencia de un ingeniero del proveedor durante las pruebas, lo cual es una práctica operativa habitual y no traslada cargas desproporcionadas ni limita derechos del contratista."
+ },
+ "d60961798da91728e401d902": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Impone al proveedor un soporte técnico de 10 años, periodo excesivo y asume todas las penalidades por fallos, generando una carga desproporcionada y responsabilidad ilimitada sin contraprestación adicional."
+ },
+ "fa05319cb5fed81b91971466": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Transfiere al proveedor la totalidad del riesgo de pérdida o deterioro de los equipos hasta su puesta en marcha, sin contraprestación ni limitación, lo que constituye una carga desproporcionada para la parte ejecutora."
+ },
+ "fa93efa3dff361fb590a829c": {
+  "es_riesgo": false,
+  "categoria": "roles_responsabilidades",
+  "razon": "La garantía de 12 meses por defectos de fabricación es una obligación típica y equilibrada, sin cargas desproporcionadas ni limitaciones excesivas para el ejecutor."
+ },
+ "e5534c6bde586b1dd0ccea8b": {
+  "es_riesgo": false,
+  "categoria": "seguridad",
+  "razon": "Exige al proveedor cumplir con normas de seguridad y afiliación a la ARL, requisito estándar y equilibrado sin trasladar cargas desproporcionadas"
+ },
+ "330a5c179242505153bf490f": {
+  "es_riesgo": false,
+  "categoria": "seguridad",
+  "razon": "La obligación de realizar charlas diarias de seguridad e higiene es una práctica estándar en obras civiles, no implica cargas desproporcionadas ni limita derechos del ejecutor."
+ },
+ "0666e4c7ca9c434a545b2b90": {
+  "es_riesgo": false,
+  "categoria": "pago",
+  "razon": "La cláusula vincula el pago a la entrega y aprobación de cada informe, práctica habitual y equilibrada; no impone cargas desproporcionadas ni retenciones indebidas al consultor."
+ },
+ "72cdde2697d04309fde06e0c": {
+  "es_riesgo": true,
+  "categoria": "procedimiento",
+  "razon": "Permite al cliente suspender los servicios de forma indefinida y sin compensar al consultor por los costos de paralización, trasladando unilateralmente una carga económica y de incertidumbre al ejecutor."
+ },
+ "ca5d1abfd64404e720998707": {
+  "es_riesgo": false,
+  "categoria": "procedimiento",
+  "razon": "La obligación de confidencialidad es una cláusula estándar que no impone cargas desproporcionadas ni limita derechos sin contraprestación, por lo que no constituye un riesgo contractual para el consultor."
+ },
+ "e5027755ae81d59e281a8bd7": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Imparte al consultor una garantía de resultados comerciales y una obligación de responder económicamente si no se cumplen, trasladando un riesgo de desempeño y financiero desproporcionado."
+ },
+ "cdc5425c64e12bd8dfe6ff88": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Transfiere sin compensación la propiedad intelectual previa del consultor al cliente, cargando al consultor una pérdida de derechos y valor económico desproporcionada."
+ },
+ "8ccb4bf8a9a0163bb440e48b": {
+  "es_riesgo": false,
+  "categoria": "roles_responsabilidades",
+  "razon": "La cláusula asigna la propiedad de los entregables al cliente y reserva al consultor sus metodologías, lo cual es una disposición típica de propiedad intelectual y no impone cargas desproporcionadas ni limita derechos sin compensación adicional."
+ },
+ "af639553f028756748758af6": {
+  "es_riesgo": false,
+  "categoria": "definicion_referencia",
+  "razon": "Simple definición del término 'Entregable' sin imponer cargas ni limitar derechos, es una cláusula estándar de referencia"
+ },
+ "62abb206803ac9bcd8886723": {
+  "es_riesgo": false,
+  "categoria": "definicion_referencia",
+  "razon": "La cláusula solo establece que las definiciones previas regirán la interpretación del contrato, lo cual es una disposición estándar y no transfiere cargas ni riesgos a la parte ejecutora."
+ },
+ "82fa0c610c76868514b711e3": {
+  "es_riesgo": false,
+  "categoria": "definicion_referencia",
+  "razon": "Solo define el término 'Interventoría' sin imponer obligaciones ni cargas a la parte ejecutora, por lo que no genera riesgo contractual."
+ },
+ "150ac8d19944ab793a055e9d": {
+  "es_riesgo": false,
+  "categoria": "seguridad",
+  "razon": "Obligar al contratista a mantener pólizas de responsabilidad civil y cumplimiento es una práctica estándar de gestión de riesgos y no traslada cargas desproporcionadas ni limita derechos sin contraprestación."
+ }
+}
