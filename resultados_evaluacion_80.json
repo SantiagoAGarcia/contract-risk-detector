@@ -1,0 +1,3623 @@
+{
+  "fecha": "2026-10-27",
+  "corpus": {
+    "archivo": "corpus_expanded_80.json",
+    "n": 80,
+    "n_riesgo": 41
+  },
+  "modelo_llm": "openai/gpt-oss-120b",
+  "metricas": {
+    "Reglas (línea base)": {
+      "precision": 0.8333333333333334,
+      "recall": 0.36585365853658536,
+      "f1": 0.5084745762711864,
+      "exactitud": 0.6375,
+      "confusion": {
+        "VP": 15,
+        "FP": 3,
+        "VN": 36,
+        "FN": 26
+      },
+      "recall_por_categoria": {
+        "pago": {
+          "n_riesgo": 7,
+          "detectadas": 3,
+          "recall": 0.42857142857142855,
+          "recall_con_categoria": 0.42857142857142855
+        },
+        "tiempo": {
+          "n_riesgo": 6,
+          "detectadas": 2,
+          "recall": 0.3333333333333333,
+          "recall_con_categoria": 0.3333333333333333
+        },
+        "procedimiento": {
+          "n_riesgo": 10,
+          "detectadas": 4,
+          "recall": 0.4,
+          "recall_con_categoria": 0.4
+        },
+        "roles_responsabilidades": {
+          "n_riesgo": 12,
+          "detectadas": 6,
+          "recall": 0.5,
+          "recall_con_categoria": 0.4166666666666667
+        },
+        "seguridad": {
+          "n_riesgo": 3,
+          "detectadas": 0,
+          "recall": 0.0,
+          "recall_con_categoria": 0.0
+        },
+        "definicion_referencia": {
+          "n_riesgo": 3,
+          "detectadas": 0,
+          "recall": 0.0,
+          "recall_con_categoria": 0.0
+        }
+      }
+    },
+    "Reglas afinadas*": {
+      "precision": 0.8636363636363636,
+      "recall": 0.4634146341463415,
+      "f1": 0.6031746031746031,
+      "exactitud": 0.6875,
+      "confusion": {
+        "VP": 19,
+        "FP": 3,
+        "VN": 36,
+        "FN": 22
+      },
+      "recall_por_categoria": {
+        "pago": {
+          "n_riesgo": 7,
+          "detectadas": 3,
+          "recall": 0.42857142857142855,
+          "recall_con_categoria": 0.42857142857142855
+        },
+        "tiempo": {
+          "n_riesgo": 6,
+          "detectadas": 2,
+          "recall": 0.3333333333333333,
+          "recall_con_categoria": 0.3333333333333333
+        },
+        "procedimiento": {
+          "n_riesgo": 10,
+          "detectadas": 6,
+          "recall": 0.6,
+          "recall_con_categoria": 0.6
+        },
+        "roles_responsabilidades": {
+          "n_riesgo": 12,
+          "detectadas": 8,
+          "recall": 0.6666666666666666,
+          "recall_con_categoria": 0.6666666666666666
+        },
+        "seguridad": {
+          "n_riesgo": 3,
+          "detectadas": 0,
+          "recall": 0.0,
+          "recall_con_categoria": 0.0
+        },
+        "definicion_referencia": {
+          "n_riesgo": 3,
+          "detectadas": 0,
+          "recall": 0.0,
+          "recall_con_categoria": 0.0
+        }
+      }
+    },
+    "LLM (openai/gpt-oss-120b)": {
+      "precision": 0.975609756097561,
+      "recall": 0.975609756097561,
+      "f1": 0.975609756097561,
+      "exactitud": 0.975,
+      "confusion": {
+        "VP": 40,
+        "FP": 1,
+        "VN": 38,
+        "FN": 1
+      },
+      "recall_por_categoria": {
+        "pago": {
+          "n_riesgo": 7,
+          "detectadas": 7,
+          "recall": 1.0,
+          "recall_con_categoria": 1.0
+        },
+        "tiempo": {
+          "n_riesgo": 6,
+          "detectadas": 6,
+          "recall": 1.0,
+          "recall_con_categoria": 1.0
+        },
+        "procedimiento": {
+          "n_riesgo": 10,
+          "detectadas": 10,
+          "recall": 1.0,
+          "recall_con_categoria": 0.8
+        },
+        "roles_responsabilidades": {
+          "n_riesgo": 12,
+          "detectadas": 12,
+          "recall": 1.0,
+          "recall_con_categoria": 1.0
+        },
+        "seguridad": {
+          "n_riesgo": 3,
+          "detectadas": 3,
+          "recall": 1.0,
+          "recall_con_categoria": 0.0
+        },
+        "definicion_referencia": {
+          "n_riesgo": 3,
+          "detectadas": 2,
+          "recall": 0.6666666666666666,
+          "recall_con_categoria": 0.3333333333333333
+        }
+      }
+    }
+  },
+  "mcnemar": {
+    "modelo_a": "Reglas",
+    "modelo_b": "LLM",
+    "tabla": {
+      "a": 50,
+      "b": 1,
+      "c": 28,
+      "d": 1
+    },
+    "metodo": "chi-cuadrado con corrección de continuidad",
+    "estadistico": 23.310344827586206,
+    "p_valor": 1.3785655170023429e-06,
+    "alpha": 0.05,
+    "significativo": true,
+    "conclusion": "p = 0.0000 < α = 0.05: se rechaza H0. Existe una diferencia estadísticamente significativa entre Reglas y LLM; LLM comete menos errores."
+  },
+  "fallos": {
+    "Reglas (línea base)": {
+      "falsos_positivos": [
+        {
+          "id": 46,
+          "texto": "Se retendrá en la fuente el porcentaje que corresponda de acuerdo con la normatividad tributaria vigente.",
+          "real": {
+            "es_riesgo": false,
+            "categoria": "pago"
+          },
+          "prediccion": {
+            "es_riesgo": true,
+            "categoria": "pago",
+            "patrones_activados": [
+              "pago:retendr[áa]"
+            ]
+          }
+        },
+        {
+          "id": 52,
+          "texto": "En caso de retraso injustificado en la entrega de informes se aplicará una penalidad del 0,1% diario sobre el valor del informe, con un tope máximo del 10% del valor del contrato.",
+          "real": {
+            "es_riesgo": false,
+            "categoria": "tiempo"
+          },
+          "prediccion": {
+            "es_riesgo": true,
+            "categoria": "tiempo",
+            "patrones_activados": [
+              "tiempo:penalidad"
+            ]
+          }
+        },
+        {
+          "id": 59,
+          "texto": "La entidad solo podrá declarar la terminación unilateral en las causales previstas en la ley, previo debido proceso y con liquidación de lo ejecutado.",
+          "real": {
+            "es_riesgo": false,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": true,
+            "categoria": "procedimiento",
+            "patrones_activados": [
+              "procedimiento:terminaci[óo]n unilateral"
+            ]
+          }
+        }
+      ],
+      "falsos_negativos": [
+        {
+          "id": 6,
+          "texto": "La entidad contratante podrá dar por terminado el contrato de manera unilateral y anticipada en cualquier momento, sin necesidad de judicialización ni indemnización.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 18,
+          "texto": "El subcontratista no tendrá derecho a reconocimiento económico alguno por actividades complementarias aun cuando sean requeridas para la obra.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 21,
+          "texto": "El subcontratista responde de manera ilimitada por los perjuicios que sus empleados ocasionen a la infraestructura del contratante.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "roles_responsabilidades"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 27,
+          "texto": "El proveedor asume todo el riesgo por pérdida o deterioro de los equipos hasta el momento de su puesta en marcha definitiva.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "roles_responsabilidades"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 41,
+          "texto": "El valor del contrato no será objeto de ajuste alguno durante su ejecución, cualquiera que sea la variación de los precios de los materiales en el mercado.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "pago"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 42,
+          "texto": "La entidad pagará las facturas una vez el ministerio le haya girado los recursos correspondientes, sin que exista un plazo máximo para ello.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "pago"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 43,
+          "texto": "De cada factura se descontará y conservará un veinte por ciento, que solo será devuelto al proveedor tras la liquidación final del contrato, cuya fecha no se determina.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "pago"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 44,
+          "texto": "El subcontratista recibirá su pago únicamente cuando el contratista principal haya recibido del cliente final el pago correspondiente a las mismas actividades.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "pago"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 48,
+          "texto": "Si el contratista no entrega la obra en la fecha pactada, se le descontará diariamente el dos por ciento del valor del contrato, sin límite máximo.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "tiempo"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 49,
+          "texto": "Las entregas efectuadas fuera del plazo acordado no serán pagadas al proveedor, quien además cubrirá el sobrecosto de adquirir los bienes con otro proveedor.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "tiempo"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 50,
+          "texto": "El proveedor deberá instalar los equipos en el plazo que el comprador le indique por escrito, el cual podrá ser inferior a cinco días hábiles.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "tiempo"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 51,
+          "texto": "Los atrasos causados por otros subcontratistas o por el contratista principal no darán lugar a ampliación del plazo de ejecución.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "tiempo"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 55,
+          "texto": "El contratante se reserva la facultad de finalizar este acuerdo por decisión propia en cualquier tiempo, bastando un aviso de veinticuatro horas.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 56,
+          "texto": "Las obras complementarias que ordene el contratista se entenderán incluidas en el precio global, sin que el subcontratista pueda reclamar pago adicional por ellas.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 57,
+          "texto": "El comprador podrá variar las cantidades solicitadas hasta en un cincuenta por ciento, en más o en menos, manteniendo los precios unitarios inicialmente pactados.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 58,
+          "texto": "Toda reclamación del contratista deberá presentarse dentro de los tres días siguientes al hecho que la origina; vencido este término, se entenderá que renuncia a ella.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 62,
+          "texto": "El subcontratista exonerará y defenderá al contratista frente a toda demanda o reclamo que se presente con ocasión de las obras, cualquiera que sea su causa.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "roles_responsabilidades"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 63,
+          "texto": "Los gastos de retiro, reemplazo y nueva entrega de la mercancía rechazada correrán por cuenta del proveedor, sin límite de cuantía.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "roles_responsabilidades"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 64,
+          "texto": "El consultor responderá por las pérdidas que sufra el cliente como consecuencia de las decisiones que adopte con base en sus informes.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "roles_responsabilidades"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 65,
+          "texto": "El proveedor responderá por los daños de los equipos aun cuando se deriven de un uso indebido o de la manipulación por parte del personal del comprador.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "roles_responsabilidades"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 69,
+          "texto": "El contratista asumirá las multas que impongan las autoridades por incumplimientos de seguridad industrial en la obra, incluso cuando se originen en instrucciones de la interventoría.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "seguridad"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 70,
+          "texto": "El subcontratista deberá iniciar labores en la fecha indicada aunque las pólizas y afiliaciones de su personal no hayan sido aprobadas, asumiendo cualquier consecuencia.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "seguridad"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 71,
+          "texto": "El proveedor asumirá los costos de cualquier accidente de trabajo ocurrido en las instalaciones del comprador, sin importar a quién sea imputable.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "seguridad"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 75,
+          "texto": "Para efectos de este contrato, se entenderá por fuerza mayor únicamente un desastre natural declarado oficialmente por el Gobierno Nacional; ningún otro evento tendrá esta calidad.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "definicion_referencia"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 76,
+          "texto": "Se entenderá por 'aprobación del entregable' la manifestación expresa del cliente, sin que su silencio, cualquiera que sea su duración, implique aceptación.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "definicion_referencia"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 77,
+          "texto": "En caso de contradicción entre los documentos del contrato, prevalecerá siempre la interpretación que determine el comprador.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "definicion_referencia"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        }
+      ],
+      "categoria_incorrecta": [
+        {
+          "id": 26,
+          "texto": "El proveedor estará obligado a prestar soporte técnico preventivo y correctivo por un periodo de 10 años asumiendo todo penalidad por fallo.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "roles_responsabilidades"
+          },
+          "prediccion": {
+            "es_riesgo": true,
+            "categoria": "tiempo",
+            "patrones_activados": [
+              "tiempo:penalidad"
+            ]
+          }
+        }
+      ]
+    },
+    "Reglas afinadas*": {
+      "falsos_positivos": [
+        {
+          "id": 46,
+          "texto": "Se retendrá en la fuente el porcentaje que corresponda de acuerdo con la normatividad tributaria vigente.",
+          "real": {
+            "es_riesgo": false,
+            "categoria": "pago"
+          },
+          "prediccion": {
+            "es_riesgo": true,
+            "categoria": "pago",
+            "patrones_activados": [
+              "pago:retendr[áa]"
+            ]
+          }
+        },
+        {
+          "id": 52,
+          "texto": "En caso de retraso injustificado en la entrega de informes se aplicará una penalidad del 0,1% diario sobre el valor del informe, con un tope máximo del 10% del valor del contrato.",
+          "real": {
+            "es_riesgo": false,
+            "categoria": "tiempo"
+          },
+          "prediccion": {
+            "es_riesgo": true,
+            "categoria": "tiempo",
+            "patrones_activados": [
+              "tiempo:penalidad"
+            ]
+          }
+        },
+        {
+          "id": 59,
+          "texto": "La entidad solo podrá declarar la terminación unilateral en las causales previstas en la ley, previo debido proceso y con liquidación de lo ejecutado.",
+          "real": {
+            "es_riesgo": false,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": true,
+            "categoria": "procedimiento",
+            "patrones_activados": [
+              "procedimiento:terminaci[óo]n\\s+unilateral",
+              "procedimiento:termin\\w*.{0,40}unilateral"
+            ]
+          }
+        }
+      ],
+      "falsos_negativos": [
+        {
+          "id": 41,
+          "texto": "El valor del contrato no será objeto de ajuste alguno durante su ejecución, cualquiera que sea la variación de los precios de los materiales en el mercado.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "pago"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 42,
+          "texto": "La entidad pagará las facturas una vez el ministerio le haya girado los recursos correspondientes, sin que exista un plazo máximo para ello.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "pago"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 43,
+          "texto": "De cada factura se descontará y conservará un veinte por ciento, que solo será devuelto al proveedor tras la liquidación final del contrato, cuya fecha no se determina.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "pago"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 44,
+          "texto": "El subcontratista recibirá su pago únicamente cuando el contratista principal haya recibido del cliente final el pago correspondiente a las mismas actividades.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "pago"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 48,
+          "texto": "Si el contratista no entrega la obra en la fecha pactada, se le descontará diariamente el dos por ciento del valor del contrato, sin límite máximo.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "tiempo"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 49,
+          "texto": "Las entregas efectuadas fuera del plazo acordado no serán pagadas al proveedor, quien además cubrirá el sobrecosto de adquirir los bienes con otro proveedor.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "tiempo"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 50,
+          "texto": "El proveedor deberá instalar los equipos en el plazo que el comprador le indique por escrito, el cual podrá ser inferior a cinco días hábiles.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "tiempo"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 51,
+          "texto": "Los atrasos causados por otros subcontratistas o por el contratista principal no darán lugar a ampliación del plazo de ejecución.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "tiempo"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 55,
+          "texto": "El contratante se reserva la facultad de finalizar este acuerdo por decisión propia en cualquier tiempo, bastando un aviso de veinticuatro horas.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 56,
+          "texto": "Las obras complementarias que ordene el contratista se entenderán incluidas en el precio global, sin que el subcontratista pueda reclamar pago adicional por ellas.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 57,
+          "texto": "El comprador podrá variar las cantidades solicitadas hasta en un cincuenta por ciento, en más o en menos, manteniendo los precios unitarios inicialmente pactados.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 58,
+          "texto": "Toda reclamación del contratista deberá presentarse dentro de los tres días siguientes al hecho que la origina; vencido este término, se entenderá que renuncia a ella.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 62,
+          "texto": "El subcontratista exonerará y defenderá al contratista frente a toda demanda o reclamo que se presente con ocasión de las obras, cualquiera que sea su causa.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "roles_responsabilidades"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 63,
+          "texto": "Los gastos de retiro, reemplazo y nueva entrega de la mercancía rechazada correrán por cuenta del proveedor, sin límite de cuantía.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "roles_responsabilidades"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 64,
+          "texto": "El consultor responderá por las pérdidas que sufra el cliente como consecuencia de las decisiones que adopte con base en sus informes.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "roles_responsabilidades"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 65,
+          "texto": "El proveedor responderá por los daños de los equipos aun cuando se deriven de un uso indebido o de la manipulación por parte del personal del comprador.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "roles_responsabilidades"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 69,
+          "texto": "El contratista asumirá las multas que impongan las autoridades por incumplimientos de seguridad industrial en la obra, incluso cuando se originen en instrucciones de la interventoría.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "seguridad"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 70,
+          "texto": "El subcontratista deberá iniciar labores en la fecha indicada aunque las pólizas y afiliaciones de su personal no hayan sido aprobadas, asumiendo cualquier consecuencia.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "seguridad"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 71,
+          "texto": "El proveedor asumirá los costos de cualquier accidente de trabajo ocurrido en las instalaciones del comprador, sin importar a quién sea imputable.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "seguridad"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 75,
+          "texto": "Para efectos de este contrato, se entenderá por fuerza mayor únicamente un desastre natural declarado oficialmente por el Gobierno Nacional; ningún otro evento tendrá esta calidad.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "definicion_referencia"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 76,
+          "texto": "Se entenderá por 'aprobación del entregable' la manifestación expresa del cliente, sin que su silencio, cualquiera que sea su duración, implique aceptación.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "definicion_referencia"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        },
+        {
+          "id": 77,
+          "texto": "En caso de contradicción entre los documentos del contrato, prevalecerá siempre la interpretación que determine el comprador.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "definicion_referencia"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "ninguna",
+            "patrones_activados": []
+          }
+        }
+      ],
+      "categoria_incorrecta": []
+    },
+    "LLM (openai/gpt-oss-120b)": {
+      "falsos_positivos": [
+        {
+          "id": 19,
+          "texto": "Las controversias surgidas de este subcontrato se resolverán en primera instancia mediante arreglo directo entre los directores del proyecto.",
+          "real": {
+            "es_riesgo": false,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": true,
+            "categoria": "procedimiento",
+            "razon": "Obliga a resolver controversias solo mediante arreglo directo entre los directores del proyecto, limitando al subcontratista el acceso a mecanismos imparciales de solución y pudiendo generar desequilibrio y retrasos en la resolución."
+          }
+        }
+      ],
+      "falsos_negativos": [
+        {
+          "id": 76,
+          "texto": "Se entenderá por 'aprobación del entregable' la manifestación expresa del cliente, sin que su silencio, cualquiera que sea su duración, implique aceptación.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "definicion_referencia"
+          },
+          "prediccion": {
+            "es_riesgo": false,
+            "categoria": "procedimiento",
+            "razon": "Establece que la aceptación del entregable debe ser expresa del cliente, evitando que el silencio implique aceptación y reduciendo incertidumbre para el contratista; no impone cargas desproporcionadas."
+          }
+        }
+      ],
+      "categoria_incorrecta": [
+        {
+          "id": 17,
+          "texto": "El subcontratista estará obligado a ejecutar trabajos adicionales a precios fijos independientemente de la complejidad o aumento de cantidades.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": true,
+            "categoria": "pago",
+            "razon": "Obliga al subcontratista a ejecutar trabajos adicionales a precio fijo sin ajuste por mayor complejidad o cantidades, trasladando el riesgo de costos al ejecutor"
+          }
+        },
+        {
+          "id": 56,
+          "texto": "Las obras complementarias que ordene el contratista se entenderán incluidas en el precio global, sin que el subcontratista pueda reclamar pago adicional por ellas.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "procedimiento"
+          },
+          "prediccion": {
+            "es_riesgo": true,
+            "categoria": "pago",
+            "razon": "Obliga al subcontratista a ejecutar obras complementarias sin derecho a remuneración adicional, trasladando el riesgo de costos extra al ejecutor de forma desproporcionada."
+          }
+        },
+        {
+          "id": 69,
+          "texto": "El contratista asumirá las multas que impongan las autoridades por incumplimientos de seguridad industrial en la obra, incluso cuando se originen en instrucciones de la interventoría.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "seguridad"
+          },
+          "prediccion": {
+            "es_riesgo": true,
+            "categoria": "roles_responsabilidades",
+            "razon": "Imparte al contratista la obligación de pagar multas de seguridad aunque se originen por instrucciones de la interventoría, generando una carga desproporcionada y sin compensación"
+          }
+        },
+        {
+          "id": 70,
+          "texto": "El subcontratista deberá iniciar labores en la fecha indicada aunque las pólizas y afiliaciones de su personal no hayan sido aprobadas, asumiendo cualquier consecuencia.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "seguridad"
+          },
+          "prediccion": {
+            "es_riesgo": true,
+            "categoria": "roles_responsabilidades",
+            "razon": "Obliga al subcontratista a iniciar labores sin que sus pólizas y afiliaciones estén aprobadas, transfiriendo riesgos de cumplimiento, responsabilidad civil y laboral al ejecutor sin compensación ni garantía."
+          }
+        },
+        {
+          "id": 71,
+          "texto": "El proveedor asumirá los costos de cualquier accidente de trabajo ocurrido en las instalaciones del comprador, sin importar a quién sea imputable.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "seguridad"
+          },
+          "prediccion": {
+            "es_riesgo": true,
+            "categoria": "roles_responsabilidades",
+            "razon": "Imparte al proveedor una responsabilidad ilimitada por accidentes laborales, aun cuando no sea culpable, trasladando un riesgo desproporcionado de indemnización y costos"
+          }
+        },
+        {
+          "id": 77,
+          "texto": "En caso de contradicción entre los documentos del contrato, prevalecerá siempre la interpretación que determine el comprador.",
+          "real": {
+            "es_riesgo": true,
+            "categoria": "definicion_referencia"
+          },
+          "prediccion": {
+            "es_riesgo": true,
+            "categoria": "procedimiento",
+            "razon": "Otorga al comprador la autoridad exclusiva para interpretar contradicciones, trasladando unilateralmente la carga de riesgos interpretativos al contratista sin contrapartida"
+          }
+        }
+      ]
+    }
+  },
+  "fallos_reglas_cualificados": [
+    {
+      "id": 6,
+      "texto": "La entidad contratante podrá dar por terminado el contrato de manera unilateral y anticipada en cualquier momento, sin necesidad de judicialización ni indemnización.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "procedimiento:terminaci[óo]n unilateral (coinciden: termi, unila)",
+        "procedimiento:ceder el presente contrato (coinciden: contr)",
+        "procedimiento:modificar unilateralmente (coinciden: unila)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Otorga a la entidad contratante la facultad de terminar el contrato unilateralmente y sin indemnización, trasladando todo el riesgo de interrupción al contratista sin compensación"
+    },
+    {
+      "id": 18,
+      "texto": "El subcontratista no tendrá derecho a reconocimiento económico alguno por actividades complementarias aun cuando sean requeridas para la obra.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "tiempo:perder[áa] el derecho (coinciden: derec)",
+        "procedimiento:sin derecho a.*reconocimiento (coinciden: derec, recon)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Obliga al subcontratista a ejecutar actividades complementarias sin reconocimiento económico, trasladando costos y riesgos de forma desproporcionada y sin contraprestación."
+    },
+    {
+      "id": 21,
+      "texto": "El subcontratista responde de manera ilimitada por los perjuicios que sus empleados ocasionen a la infraestructura del contratante.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "procedimiento:ceder el presente contrato (coinciden: contr)",
+        "roles_responsabilidades:responsabilidad exclusiva (coinciden: respo)",
+        "roles_responsabilidades:respuesta ilimitada (coinciden: ilimi)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Impone responsabilidad ilimitada al subcontratista por daños de sus empleados, sin límite ni compensación, lo que traslada un riesgo desproporcionado de pérdidas."
+    },
+    {
+      "id": 27,
+      "texto": "El proveedor asume todo el riesgo por pérdida o deterioro de los equipos hasta el momento de su puesta en marcha definitiva.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "riesgo_semantico",
+      "tipo_fallo_desc": "Riesgo en el sentido, no en una palabra",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [],
+      "llm_resuelve": true,
+      "llm_razon": "Transfiere al proveedor la totalidad del riesgo de pérdida o deterioro de los equipos hasta su puesta en marcha, sin contraprestación ni limitación, lo que constituye una carga desproporcionada para la parte ejecutora."
+    },
+    {
+      "id": 41,
+      "texto": "El valor del contrato no será objeto de ajuste alguno durante su ejecución, cualquiera que sea la variación de los precios de los materiales en el mercado.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "pago"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "pago:precio fijo (coinciden: preci)",
+        "procedimiento:ceder el presente contrato (coinciden: contr)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Imparte al ejecutor la carga de absorber cualquier aumento de precios de materiales, sin posibilidad de reajuste, lo que genera un riesgo económico desproporcionado."
+    },
+    {
+      "id": 42,
+      "texto": "La entidad pagará las facturas una vez el ministerio le haya girado los recursos correspondientes, sin que exista un plazo máximo para ello.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "pago"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "riesgo_semantico",
+      "tipo_fallo_desc": "Riesgo en el sentido, no en una palabra",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [],
+      "llm_resuelve": true,
+      "llm_razon": "La cláusula condiciona el pago a la disponibilidad de recursos del ministerio y no establece plazo máximo ni intereses por mora, generando incertidumbre y posible retraso indefinido del pago al contratista."
+    },
+    {
+      "id": 43,
+      "texto": "De cada factura se descontará y conservará un veinte por ciento, que solo será devuelto al proveedor tras la liquidación final del contrato, cuya fecha no se determina.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "pago"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "procedimiento:ceder el presente contrato (coinciden: contr)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Retención del 20% de cada factura sin establecer una fecha de devolución genera incertidumbre y afecta la liquidez del proveedor, constituyendo una carga desproporcionada."
+    },
+    {
+      "id": 44,
+      "texto": "El subcontratista recibirá su pago únicamente cuando el contratista principal haya recibido del cliente final el pago correspondiente a las mismas actividades.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "pago"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "procedimiento:ceder el presente contrato (coinciden: contr)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Transfiere el riesgo de pago al subcontratista, ya que su cobro depende del momento en que el contratista principal reciba el pago del cliente, sin garantía de plazos ni intereses por mora, lo que genera incertidumbre y posible retraso en el pago."
+    },
+    {
+      "id": 46,
+      "texto": "Se retendrá en la fuente el porcentaje que corresponda de acuerdo con la normatividad tributaria vigente.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "pago"
+      },
+      "prediccion": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "patrones_activados": [
+          "pago:retendr[áa]"
+        ]
+      },
+      "tipo_error": "FP",
+      "tipo_fallo": "riesgo_semantico",
+      "tipo_fallo_desc": "Riesgo en el sentido, no en una palabra",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "pago:retendr[áa]"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Establece la retención de impuestos en la fuente conforme a la normativa tributaria, práctica estándar y sin cargar obligaciones desproporcionadas al contratista."
+    },
+    {
+      "id": 48,
+      "texto": "Si el contratista no entrega la obra en la fecha pactada, se le descontará diariamente el dos por ciento del valor del contrato, sin límite máximo.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "tiempo"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "tiempo:mora en la entrega (coinciden: entre)",
+        "procedimiento:ceder el presente contrato (coinciden: contr)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Imponen una penalidad diaria del 2% del valor total sin tope, generando una carga desproporcionada y potencialmente ilimitada para el contratista"
+    },
+    {
+      "id": 49,
+      "texto": "Las entregas efectuadas fuera del plazo acordado no serán pagadas al proveedor, quien además cubrirá el sobrecosto de adquirir los bienes con otro proveedor.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "tiempo"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "tiempo:mora en la entrega (coinciden: entre)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Impone la pérdida total del pago y la obligación de cubrir costos adicionales por entregas tardías, trasladando una carga desproporcionada al proveedor."
+    },
+    {
+      "id": 50,
+      "texto": "El proveedor deberá instalar los equipos en el plazo que el comprador le indique por escrito, el cual podrá ser inferior a cinco días hábiles.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "tiempo"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "riesgo_semantico",
+      "tipo_fallo_desc": "Riesgo en el sentido, no en una palabra",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [],
+      "llm_resuelve": true,
+      "llm_razon": "Otorga al comprador la facultad unilateral de fijar plazos muy cortos, sin prever extensiones ni compensaciones, lo que puede generar incumplimiento y sanciones para el proveedor."
+    },
+    {
+      "id": 51,
+      "texto": "Los atrasos causados por otros subcontratistas o por el contratista principal no darán lugar a ampliación del plazo de ejecución.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "tiempo"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "procedimiento:ceder el presente contrato (coinciden: contr)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Impone al ejecutor la carga de los retrasos provocados por terceros sin posibilidad de ampliar el plazo, trasladando desproporcionadamente el riesgo de demora."
+    },
+    {
+      "id": 52,
+      "texto": "En caso de retraso injustificado en la entrega de informes se aplicará una penalidad del 0,1% diario sobre el valor del informe, con un tope máximo del 10% del valor del contrato.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "tiempo"
+      },
+      "prediccion": {
+        "es_riesgo": true,
+        "categoria": "tiempo",
+        "patrones_activados": [
+          "tiempo:penalidad"
+        ]
+      },
+      "tipo_error": "FP",
+      "tipo_fallo": "riesgo_semantico",
+      "tipo_fallo_desc": "Riesgo en el sentido, no en una palabra",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "tiempo:penalidad"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "La penalidad por retraso está limitada al 10% del contrato y su cálculo diario es razonable, por lo que no implica una carga desproporcionada para el ejecutor."
+    },
+    {
+      "id": 55,
+      "texto": "El contratante se reserva la facultad de finalizar este acuerdo por decisión propia en cualquier tiempo, bastando un aviso de veinticuatro horas.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "procedimiento:ceder el presente contrato (coinciden: contr)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Permite al contratante terminar unilateralmente el contrato en cualquier momento con solo 24 h de aviso, sin indemnización ni causa justificada, lo que genera incertidumbre y posible pérdida de ingresos para el ejecutor."
+    },
+    {
+      "id": 56,
+      "texto": "Las obras complementarias que ordene el contratista se entenderán incluidas en el precio global, sin que el subcontratista pueda reclamar pago adicional por ellas.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "pago:precio fijo (coinciden: preci)",
+        "procedimiento:ceder el presente contrato (coinciden: contr)",
+        "procedimiento:trabajos adicionales (coinciden: adici)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Obliga al subcontratista a ejecutar obras complementarias sin derecho a remuneración adicional, trasladando el riesgo de costos extra al ejecutor de forma desproporcionada."
+    },
+    {
+      "id": 57,
+      "texto": "El comprador podrá variar las cantidades solicitadas hasta en un cincuenta por ciento, en más o en menos, manteniendo los precios unitarios inicialmente pactados.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "pago:precio fijo (coinciden: preci)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Transfiere al contratista la obligación de aceptar variaciones de hasta ±50% en la cantidad sin ajuste de precios unitarios, lo que puede generar sobrecostos o pérdida de ingresos y genera incertidumbre económica."
+    },
+    {
+      "id": 58,
+      "texto": "Toda reclamación del contratista deberá presentarse dentro de los tres días siguientes al hecho que la origina; vencido este término, se entenderá que renuncia a ella.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "procedimiento:terminaci[óo]n unilateral (coinciden: termi)",
+        "procedimiento:ceder el presente contrato (coinciden: contr)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Impone un plazo extremadamente corto (3 días) para presentar cualquier reclamación, lo que limita desproporcionadamente los derechos del contratista y genera riesgo de perder sus pretensiones sin causa justificada."
+    },
+    {
+      "id": 59,
+      "texto": "La entidad solo podrá declarar la terminación unilateral en las causales previstas en la ley, previo debido proceso y con liquidación de lo ejecutado.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "procedimiento"
+      },
+      "prediccion": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "patrones_activados": [
+          "procedimiento:terminaci[óo]n unilateral"
+        ]
+      },
+      "tipo_error": "FP",
+      "tipo_fallo": "riesgo_semantico",
+      "tipo_fallo_desc": "Riesgo en el sentido, no en una palabra",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "procedimiento:terminaci[óo]n unilateral"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Limita la terminación unilateral a causales legales, exige debido proceso y garantiza la liquidación de lo ejecutado, lo que protege al contratista y no le impone cargas desproporcionadas."
+    },
+    {
+      "id": 62,
+      "texto": "El subcontratista exonerará y defenderá al contratista frente a toda demanda o reclamo que se presente con ocasión de las obras, cualquiera que sea su causa.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "procedimiento:ceder el presente contrato (coinciden: contr)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Imparte al subcontratista una obligación de indemnizar y defender al contratista por cualquier demanda o reclamo, sin limitar la causa ni el alcance, generando una responsabilidad ilimitada y desproporcionada para la parte ejecutora."
+    },
+    {
+      "id": 63,
+      "texto": "Los gastos de retiro, reemplazo y nueva entrega de la mercancía rechazada correrán por cuenta del proveedor, sin límite de cuantía.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "tiempo:mora en la entrega (coinciden: entre)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Impone al proveedor la obligación de asumir sin límite los costos de retiro, reemplazo y re‑entrega de mercancía rechazada, generando una carga económica desproporcionada e incertidumbre financiera."
+    },
+    {
+      "id": 64,
+      "texto": "El consultor responderá por las pérdidas que sufra el cliente como consecuencia de las decisiones que adopte con base en sus informes.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "roles_responsabilidades:responsabilidad exclusiva (coinciden: respo)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Imparte una responsabilidad ilimitada al consultor por pérdidas derivadas de decisiones del cliente, trasladando riesgos desproporcionados sin contraprestación."
+    },
+    {
+      "id": 65,
+      "texto": "El proveedor responderá por los daños de los equipos aun cuando se deriven de un uso indebido o de la manipulación por parte del personal del comprador.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "roles_responsabilidades:responsabilidad exclusiva (coinciden: respo)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Imparte al proveedor una responsabilidad ilimitada por daños aun cuando el origen sea uso indebido o manipulación del personal del comprador, trasladando un riesgo desproporcionado a la parte ejecutora."
+    },
+    {
+      "id": 69,
+      "texto": "El contratista asumirá las multas que impongan las autoridades por incumplimientos de seguridad industrial en la obra, incluso cuando se originen en instrucciones de la interventoría.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "seguridad"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "procedimiento:ceder el presente contrato (coinciden: contr)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Imparte al contratista la obligación de pagar multas de seguridad aunque se originen por instrucciones de la interventoría, generando una carga desproporcionada y sin compensación"
+    },
+    {
+      "id": 70,
+      "texto": "El subcontratista deberá iniciar labores en la fecha indicada aunque las pólizas y afiliaciones de su personal no hayan sido aprobadas, asumiendo cualquier consecuencia.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "seguridad"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "riesgo_semantico",
+      "tipo_fallo_desc": "Riesgo en el sentido, no en una palabra",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [],
+      "llm_resuelve": true,
+      "llm_razon": "Obliga al subcontratista a iniciar labores sin que sus pólizas y afiliaciones estén aprobadas, transfiriendo riesgos de cumplimiento, responsabilidad civil y laboral al ejecutor sin compensación ni garantía."
+    },
+    {
+      "id": 71,
+      "texto": "El proveedor asumirá los costos de cualquier accidente de trabajo ocurrido en las instalaciones del comprador, sin importar a quién sea imputable.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "seguridad"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "procedimiento:trabajos adicionales (coinciden: traba)",
+        "roles_responsabilidades:a su entero costo (coinciden: costo)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Imparte al proveedor una responsabilidad ilimitada por accidentes laborales, aun cuando no sea culpable, trasladando un riesgo desproporcionado de indemnización y costos"
+    },
+    {
+      "id": 75,
+      "texto": "Para efectos de este contrato, se entenderá por fuerza mayor únicamente un desastre natural declarado oficialmente por el Gobierno Nacional; ningún otro evento tendrá esta calidad.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "definicion_referencia"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "procedimiento:ceder el presente contrato (coinciden: contr)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Limita la definición de fuerza mayor a desastres naturales oficiales, excluyendo otros eventos que podrían afectar la ejecución, trasladando el riesgo al contratista al no permitirle excusarse por circunstancias imprevistas."
+    },
+    {
+      "id": 76,
+      "texto": "Se entenderá por 'aprobación del entregable' la manifestación expresa del cliente, sin que su silencio, cualquiera que sea su duración, implique aceptación.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "definicion_referencia"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "tiempo:mora en la entrega (coinciden: entre)"
+      ],
+      "llm_resuelve": false,
+      "llm_razon": "Establece que la aceptación del entregable debe ser expresa del cliente, evitando que el silencio implique aceptación y reduciendo incertidumbre para el contratista; no impone cargas desproporcionadas."
+    },
+    {
+      "id": 77,
+      "texto": "En caso de contradicción entre los documentos del contrato, prevalecerá siempre la interpretación que determine el comprador.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "definicion_referencia"
+      },
+      "prediccion": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "tipo_error": "FN",
+      "tipo_fallo": "redaccion_distinta",
+      "tipo_fallo_desc": "Redacción distinta a la esperada",
+      "clasificacion_origen": "heuristica",
+      "evidencia": [
+        "tiempo:mora en la entrega (coinciden: entre)",
+        "procedimiento:ceder el presente contrato (coinciden: contr)"
+      ],
+      "llm_resuelve": true,
+      "llm_razon": "Otorga al comprador la autoridad exclusiva para interpretar contradicciones, trasladando unilateralmente la carga de riesgos interpretativos al contratista sin contrapartida"
+    }
+  ],
+  "predicciones": [
+    {
+      "id": 1,
+      "texto": "El contratista acepta que el precio pactado es fijo e inamovible, renunciando a cualquier reajuste o revisión por incremento en el costo de insumos o materiales.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "pago"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "patrones_activados": [
+          "pago:inamovible"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "patrones_activados": [
+          "pago:precio\\b.{0,25}\\bfij[oa]",
+          "pago:inamovible",
+          "pago:renunci\\w*\\s+a\\s+(cualquier|todo)\\s+reajuste"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "razon": "Imparte al contratista el riesgo total de variaciones en los costos de insumos al fijar un precio inamovible sin posibilidad de reajuste, lo que puede generar pérdidas económicas."
+      }
+    },
+    {
+      "id": 2,
+      "texto": "Los pagos estarán sujetos a la disponibilidad presupuestal de la entidad y podrán retrasarse hasta 180 días sin que esto genere intereses de mora.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "pago"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "patrones_activados": [
+          "pago:disponibilidad presupuestal",
+          "pago:sin.*intereses"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "patrones_activados": [
+          "pago:disponibilidad\\s+presupuestal",
+          "pago:sin.{0,40}intereses"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "razon": "Traslada al contratista la incertidumbre y posible retraso de hasta 180 días sin intereses, lo que afecta su flujo de caja y no compensa la demora"
+      }
+    },
+    {
+      "id": 3,
+      "texto": "El pago se realizará dentro de los 30 días siguientes a la presentación de la factura con la correspondiente acta de avance aprobada por la interventoría.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "pago"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "pago",
+        "razon": "Establece un plazo de pago razonable de 30 días condicionado a la aprobación del acta de avance, práctica habitual sin imponer cargas desproporcionadas al contratista."
+      }
+    },
+    {
+      "id": 4,
+      "texto": "Por cada día de retraso en la entrega de la obra, el contratista pagará una penalidad equivalente al tres por ciento del valor total del contrato.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "tiempo"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "tiempo",
+        "patrones_activados": [
+          "tiempo:penalidad",
+          "tiempo:por cada d[íi]a de retraso"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "tiempo",
+        "patrones_activados": [
+          "tiempo:penalidad",
+          "tiempo:por\\s+cada\\s+d[íi]a\\s+de\\s+(retraso|atraso|demora)"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "tiempo",
+        "razon": "Penalidad del 3% del valor total del contrato por día de retraso es desproporcionada y genera una carga económica excesiva para el contratista"
+      }
+    },
+    {
+      "id": 5,
+      "texto": "El plazo de ejecución será de seis meses contados a partir de la firma del acta de inicio.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "tiempo"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "tiempo",
+        "razon": "Establece un plazo de ejecución estándar sin penalizaciones ni condiciones desproporcionadas, por lo que no representa un riesgo contractual para la parte ejecutora."
+      }
+    },
+    {
+      "id": 6,
+      "texto": "La entidad contratante podrá dar por terminado el contrato de manera unilateral y anticipada en cualquier momento, sin necesidad de judicialización ni indemnización.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "patrones_activados": [
+          "procedimiento:termin\\w*.{0,40}unilateral",
+          "procedimiento:sin\\s+(necesidad\\s+de\\s+)?.{0,30}indemnizaci[óo]n"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "razon": "Otorga a la entidad contratante la facultad de terminar el contrato unilateralmente y sin indemnización, trasladando todo el riesgo de interrupción al contratista sin compensación"
+      }
+    },
+    {
+      "id": 7,
+      "texto": "El contratista no podrá ceder el presente contrato bajo ninguna circunstancia ni subcontratar partes de la obra sin autorización previa.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "patrones_activados": [
+          "procedimiento:ceder el presente contrato"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "patrones_activados": [
+          "procedimiento:ceder\\s+el\\s+presente\\s+contrato"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "razon": "Limita la capacidad del contratista de ceder o subcontratar sin autorización previa, creando incertidumbre y posible imposibilidad de cumplir con la obra si la autorización es denegada."
+      }
+    },
+    {
+      "id": 8,
+      "texto": "Cualquier modificación a las especificaciones técnicas deberá constar por escrito en un otro sí firmado por ambas partes.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "procedimiento",
+        "razon": "Exige que cualquier cambio en especificaciones técnicas se haga por escrito y con firma de ambas partes, lo cual es una práctica estándar y equilibrada que protege a ambas partes sin imponer cargas desproporcionadas."
+      }
+    },
+    {
+      "id": 9,
+      "texto": "El comprador retendrá el cincuenta por ciento del pago total hasta un año después de recibida la mercancía a título de garantía indefinida.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "pago"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "patrones_activados": [
+          "pago:retendr[áa]"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "patrones_activados": [
+          "pago:retendr[áa]",
+          "pago:garant[íi]a\\s+indefinida"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "razon": "Retención del 50% del pago durante un año después de la entrega, sin compensación ni intereses, genera una carga financiera desproporcionada y gran incertidumbre para el vendedor."
+      }
+    },
+    {
+      "id": 10,
+      "texto": "El saldo restante del 50% se pagará contra entrega del bien en las instalaciones del comprador.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "pago"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "pago",
+        "razon": "Establece el pago del 50% restante al momento de la entrega del bien en las instalaciones del comprador, lo cual es una condición de pago habitual y no traslada cargas desproporcionadas al contratista"
+      }
+    },
+    {
+      "id": 11,
+      "texto": "En caso de mora en la entrega, el proveedor perderá el derecho al cobro del producto entregado y asumirá los costos de compra a terceros.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "tiempo"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "tiempo",
+        "patrones_activados": [
+          "tiempo:mora en la entrega",
+          "tiempo:perder[áa] el derecho"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "tiempo",
+        "patrones_activados": [
+          "tiempo:mora\\s+en\\s+la\\s+entrega",
+          "tiempo:perder[áa]\\s+el\\s+derecho"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "tiempo",
+        "razon": "Penaliza al proveedor por mora con pérdida del derecho a cobrar y asume costos de compra a terceros, carga desproporcionada y sin compensación"
+      }
+    },
+    {
+      "id": 12,
+      "texto": "Las entregas se realizarán en los horarios estipulados de lunes a viernes de 8:00 a 17:00 horas.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "tiempo"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "tiempo",
+        "razon": "Establece horarios de entrega razonables y sin sanciones, lo que no traslada cargas desproporcionadas al ejecutor."
+      }
+    },
+    {
+      "id": 13,
+      "texto": "El proveedor asume responsabilidad exclusiva e ilimitada por cualquier daño directo, indirecto, emergente o lucro cesante causado por el producto.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "patrones_activados": [
+          "roles_responsabilidades:responsabilidad exclusiva"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "patrones_activados": [
+          "roles_responsabilidades:responsabilidad\\s+exclusiva",
+          "roles_responsabilidades:ilimitad[ao]"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Imparte al proveedor una responsabilidad exclusiva e ilimitada por todo daño, incluidos indirectos y lucro cesante, sin límites ni compensación, lo que es desproporcionado y genera alto riesgo contractual."
+      }
+    },
+    {
+      "id": 14,
+      "texto": "Será obligación del proveedor realizar la sustitución, desmontaje, transporte y reinstalación de insumos defectuosos a su entero costo.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "patrones_activados": [
+          "roles_responsabilidades:a su entero costo"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "patrones_activados": [
+          "roles_responsabilidades:a\\s+su\\s+entero\\s+costo"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Imparte al proveedor la carga total de los costos de sustitución, desmontaje, transporte y reinstalación de insumos defectuosos, sin limitación ni contraprestación, generando un riesgo económico desproporcionado."
+      }
+    },
+    {
+      "id": 15,
+      "texto": "El comprador designará un supervisor encargado de recibir e inspeccionar los insumos entregados.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "procedimiento",
+        "razon": "Establece un control de calidad estándar mediante un supervisor del comprador; no impone cargas desproporcionadas ni limita derechos del contratista."
+      }
+    },
+    {
+      "id": 16,
+      "texto": "Las facturas electrónicas deben cumplir con todos los requisitos de ley para ser tramitadas por el departamento de contabilidad.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "pago"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "pago",
+        "razon": "Exige que las facturas electrónicas cumplan la normativa legal para su tramitación, requisito estándar y equilibrado sin trasladar cargas desproporcionadas al ejecutor"
+      }
+    },
+    {
+      "id": 17,
+      "texto": "El subcontratista estará obligado a ejecutar trabajos adicionales a precios fijos independientemente de la complejidad o aumento de cantidades.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "patrones_activados": [
+          "procedimiento:trabajos adicionales"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "patrones_activados": [
+          "pago:precios?\\s+fijos?",
+          "procedimiento:trabajos\\s+adicionales"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "razon": "Obliga al subcontratista a ejecutar trabajos adicionales a precio fijo sin ajuste por mayor complejidad o cantidades, trasladando el riesgo de costos al ejecutor"
+      }
+    },
+    {
+      "id": 18,
+      "texto": "El subcontratista no tendrá derecho a reconocimiento económico alguno por actividades complementarias aun cuando sean requeridas para la obra.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "patrones_activados": [
+          "procedimiento:no\\s+tendr[áa]\\s+derecho\\s+a.{0,40}reconocimiento"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "razon": "Obliga al subcontratista a ejecutar actividades complementarias sin reconocimiento económico, trasladando costos y riesgos de forma desproporcionada y sin contraprestación."
+      }
+    },
+    {
+      "id": 19,
+      "texto": "Las controversias surgidas de este subcontrato se resolverán en primera instancia mediante arreglo directo entre los directores del proyecto.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "razon": "Obliga a resolver controversias solo mediante arreglo directo entre los directores del proyecto, limitando al subcontratista el acceso a mecanismos imparciales de solución y pudiendo generar desequilibrio y retrasos en la resolución."
+      }
+    },
+    {
+      "id": 20,
+      "texto": "El subcontratista mantendrá indemne al contratista principal de cualquier reclamación laboral, tributaria o civil entablada por sus trabajadores.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "patrones_activados": [
+          "roles_responsabilidades:indemne"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "patrones_activados": [
+          "roles_responsabilidades:indemne"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Imparte al subcontratista la obligación de indemnizar al contratista por cualquier reclamo laboral, tributario o civil de sus trabajadores, generando una carga desproporcionada y sin límite de responsabilidad"
+      }
+    },
+    {
+      "id": 21,
+      "texto": "El subcontratista responde de manera ilimitada por los perjuicios que sus empleados ocasionen a la infraestructura del contratante.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "patrones_activados": [
+          "roles_responsabilidades:respond\\w*\\s+(de\\s+manera\\s+)?ilimitad[ao]",
+          "roles_responsabilidades:ilimitad[ao]"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Impone responsabilidad ilimitada al subcontratista por daños de sus empleados, sin límite ni compensación, lo que traslada un riesgo desproporcionado de pérdidas."
+      }
+    },
+    {
+      "id": 22,
+      "texto": "Cada parte responderá por las obligaciones laborales y prestacionales de su propio personal vinculado al proyecto.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "roles_responsabilidades",
+        "razon": "La cláusula asigna a cada parte la responsabilidad por sus propios empleados, lo cual es una distribución estándar de obligaciones laborales y no impone cargas desproporcionadas ni incertidumbre al ejecutor."
+      }
+    },
+    {
+      "id": 23,
+      "texto": "El cronograma de instalación podrá ajustarse por mutuo acuerdo en caso de fuerza mayor o caso fortuito debidamente comprobado.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "tiempo"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "tiempo",
+        "razon": "La cláusula permite ajustar el cronograma por mutuo acuerdo ante fuerza mayor o caso fortuito, lo que es una disposición estándar y equilibrada que no impone cargas desproporcionadas al ejecutor."
+      }
+    },
+    {
+      "id": 24,
+      "texto": "El comprador podrá modificar unilateralmente las especificaciones de los equipos contratados sin alterar la tarifa ni conceder extensiones de plazo.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "patrones_activados": [
+          "procedimiento:modificar unilateralmente"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "patrones_activados": [
+          "procedimiento:modificar\\s+unilateralmente"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "razon": "Permite al comprador cambiar unilateralmente las especificaciones sin ajustar el precio ni el plazo, trasladando costos y retrasos al contratista sin compensación."
+      }
+    },
+    {
+      "id": 25,
+      "texto": "Las pruebas de funcionamiento de los equipos se llevarán a cabo en presencia de un ingeniero designado por el proveedor.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "procedimiento",
+        "razon": "Establece un requisito de presencia de un ingeniero del proveedor durante las pruebas, lo cual es una práctica operativa habitual y no traslada cargas desproporcionadas ni limita derechos del contratista."
+      }
+    },
+    {
+      "id": 26,
+      "texto": "El proveedor estará obligado a prestar soporte técnico preventivo y correctivo por un periodo de 10 años asumiendo todo penalidad por fallo.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "tiempo",
+        "patrones_activados": [
+          "tiempo:penalidad"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "patrones_activados": [
+          "tiempo:penalidad",
+          "roles_responsabilidades:asum\\w+\\s+todo\\s+(el\\s+)?(riesgo|penalidad)"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Impone al proveedor un soporte técnico de 10 años, periodo excesivo y asume todas las penalidades por fallos, generando una carga desproporcionada y responsabilidad ilimitada sin contraprestación adicional."
+      }
+    },
+    {
+      "id": 27,
+      "texto": "El proveedor asume todo el riesgo por pérdida o deterioro de los equipos hasta el momento de su puesta en marcha definitiva.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "patrones_activados": [
+          "roles_responsabilidades:asum\\w+\\s+todo\\s+(el\\s+)?(riesgo|penalidad)"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Transfiere al proveedor la totalidad del riesgo de pérdida o deterioro de los equipos hasta su puesta en marcha, sin contraprestación ni limitación, lo que constituye una carga desproporcionada para la parte ejecutora."
+      }
+    },
+    {
+      "id": 28,
+      "texto": "La garantía técnica cubrirá defectos de fabricación durante 12 meses a partir de la entrega.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "roles_responsabilidades",
+        "razon": "La garantía de 12 meses por defectos de fabricación es una obligación típica y equilibrada, sin cargas desproporcionadas ni limitaciones excesivas para el ejecutor."
+      }
+    },
+    {
+      "id": 29,
+      "texto": "El personal del proveedor deberá cumplir con el uso de elementos de protección personal (EPP) e ingresar afiliado a la ARL.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "seguridad"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "seguridad",
+        "razon": "Exige al proveedor cumplir con normas de seguridad y afiliación a la ARL, requisito estándar y equilibrado sin trasladar cargas desproporcionadas"
+      }
+    },
+    {
+      "id": 30,
+      "texto": "Se realizarán charlas diarias de seguridad e higiene industrial antes de iniciar las maniobras de montaje de maquinaria.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "seguridad"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "seguridad",
+        "razon": "La obligación de realizar charlas diarias de seguridad e higiene es una práctica estándar en obras civiles, no implica cargas desproporcionadas ni limita derechos del ejecutor."
+      }
+    },
+    {
+      "id": 31,
+      "texto": "Los honorarios del consultor se cancelarán contra la entrega y aprobación de cada informe de avance según el plan de trabajo.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "pago"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "pago",
+        "razon": "La cláusula vincula el pago a la entrega y aprobación de cada informe, práctica habitual y equilibrada; no impone cargas desproporcionadas ni retenciones indebidas al consultor."
+      }
+    },
+    {
+      "id": 32,
+      "texto": "El cliente podrá suspender indefinidamente los servicios del consultor en cualquier momento sin abonar los costes de paralización.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "patrones_activados": [
+          "procedimiento:suspender indefinidamente"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "patrones_activados": [
+          "procedimiento:suspender\\s+indefinidamente"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "razon": "Permite al cliente suspender los servicios de forma indefinida y sin compensar al consultor por los costos de paralización, trasladando unilateralmente una carga económica y de incertidumbre al ejecutor."
+      }
+    },
+    {
+      "id": 33,
+      "texto": "El consultor mantendrá estricta confidencialidad sobre la información técnica y comercial compartida durante la prestación del servicio.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "procedimiento",
+        "razon": "La obligación de confidencialidad es una cláusula estándar que no impone cargas desproporcionadas ni limita derechos sin contraprestación, por lo que no constituye un riesgo contractual para el consultor."
+      }
+    },
+    {
+      "id": 34,
+      "texto": "El consultor garantiza un resultado comercial específico y responderá económicamente si los objetivos de negocio no se alcanzan.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "patrones_activados": [
+          "roles_responsabilidades:garantiza un resultado"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "patrones_activados": [
+          "roles_responsabilidades:garantiza\\s+un\\s+resultado"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Imparte al consultor una garantía de resultados comerciales y una obligación de responder económicamente si no se cumplen, trasladando un riesgo de desempeño y financiero desproporcionado."
+      }
+    },
+    {
+      "id": 35,
+      "texto": "Toda propiedad intelectual previa del consultor pasará a ser titularidad exclusiva del cliente desde la firma del contrato.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "patrones_activados": [
+          "roles_responsabilidades:titularidad exclusiva"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "patrones_activados": [
+          "roles_responsabilidades:titularidad\\s+exclusiva"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Transfiere sin compensación la propiedad intelectual previa del consultor al cliente, cargando al consultor una pérdida de derechos y valor económico desproporcionada."
+      }
+    },
+    {
+      "id": 36,
+      "texto": "Los informes y productos entregables serán propiedad del cliente, pero el consultor conservará sus metodologías previas.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "roles_responsabilidades",
+        "razon": "La cláusula asigna la propiedad de los entregables al cliente y reserva al consultor sus metodologías, lo cual es una disposición típica de propiedad intelectual y no impone cargas desproporcionadas ni limita derechos sin compensación adicional."
+      }
+    },
+    {
+      "id": 37,
+      "texto": "Para los efectos del presente contrato, se entenderá por 'Entregable' todo informe, documento o archivo digital producido por el consultor.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "definicion_referencia"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "definicion_referencia",
+        "razon": "Simple definición del término 'Entregable' sin imponer cargas ni limitar derechos, es una cláusula estándar de referencia"
+      }
+    },
+    {
+      "id": 38,
+      "texto": "Las partes declaran que las definiciones contenidas en la cláusula primera regirán la interpretación del presente acuerdo.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "definicion_referencia"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "definicion_referencia",
+        "razon": "La cláusula solo establece que las definiciones previas regirán la interpretación del contrato, lo cual es una disposición estándar y no transfiere cargas ni riesgos a la parte ejecutora."
+      }
+    },
+    {
+      "id": 39,
+      "texto": "Se considera 'Interventoría' a la persona natural o jurídica designada por la entidad para supervisar la ejecución de los trabajos.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "definicion_referencia"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "definicion_referencia",
+        "razon": "Solo define el término 'Interventoría' sin imponer obligaciones ni cargas a la parte ejecutora, por lo que no genera riesgo contractual."
+      }
+    },
+    {
+      "id": 40,
+      "texto": "El contratista deberá mantener vigentes las pólizas de responsabilidad civil extracontractual y cumplimiento durante la vigencia del contrato.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "seguridad"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "seguridad",
+        "razon": "Obligar al contratista a mantener pólizas de responsabilidad civil y cumplimiento es una práctica estándar de gestión de riesgos y no traslada cargas desproporcionadas ni limita derechos sin contraprestación."
+      }
+    },
+    {
+      "id": 41,
+      "texto": "El valor del contrato no será objeto de ajuste alguno durante su ejecución, cualquiera que sea la variación de los precios de los materiales en el mercado.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "pago"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "razon": "Imparte al ejecutor la carga de absorber cualquier aumento de precios de materiales, sin posibilidad de reajuste, lo que genera un riesgo económico desproporcionado."
+      }
+    },
+    {
+      "id": 42,
+      "texto": "La entidad pagará las facturas una vez el ministerio le haya girado los recursos correspondientes, sin que exista un plazo máximo para ello.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "pago"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "razon": "La cláusula condiciona el pago a la disponibilidad de recursos del ministerio y no establece plazo máximo ni intereses por mora, generando incertidumbre y posible retraso indefinido del pago al contratista."
+      }
+    },
+    {
+      "id": 43,
+      "texto": "De cada factura se descontará y conservará un veinte por ciento, que solo será devuelto al proveedor tras la liquidación final del contrato, cuya fecha no se determina.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "pago"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "razon": "Retención del 20% de cada factura sin establecer una fecha de devolución genera incertidumbre y afecta la liquidez del proveedor, constituyendo una carga desproporcionada."
+      }
+    },
+    {
+      "id": 44,
+      "texto": "El subcontratista recibirá su pago únicamente cuando el contratista principal haya recibido del cliente final el pago correspondiente a las mismas actividades.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "pago"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "razon": "Transfiere el riesgo de pago al subcontratista, ya que su cobro depende del momento en que el contratista principal reciba el pago del cliente, sin garantía de plazos ni intereses por mora, lo que genera incertidumbre y posible retraso en el pago."
+      }
+    },
+    {
+      "id": 45,
+      "texto": "Los honorarios se ajustarán anualmente según la variación del índice de precios al consumidor certificada por el DANE.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "pago"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "pago",
+        "razon": "Establece ajuste anual de honorarios según el IPC certificado por el DANE, lo que protege al ejecutante contra la inflación y es una práctica contractual estándar."
+      }
+    },
+    {
+      "id": 46,
+      "texto": "Se retendrá en la fuente el porcentaje que corresponda de acuerdo con la normatividad tributaria vigente.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "pago"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "patrones_activados": [
+          "pago:retendr[áa]"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "patrones_activados": [
+          "pago:retendr[áa]"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "pago",
+        "razon": "Establece la retención de impuestos en la fuente conforme a la normativa tributaria, práctica estándar y sin cargar obligaciones desproporcionadas al contratista."
+      }
+    },
+    {
+      "id": 47,
+      "texto": "El comprador pagará el valor total de la orden dentro de los 45 días calendario siguientes a la recepción a satisfacción de la mercancía.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "pago"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "pago",
+        "razon": "Establece un plazo de pago de 45 días tras la aceptación de la mercancía, plazo razonable y sin cargas adicionales para el ejecutor."
+      }
+    },
+    {
+      "id": 48,
+      "texto": "Si el contratista no entrega la obra en la fecha pactada, se le descontará diariamente el dos por ciento del valor del contrato, sin límite máximo.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "tiempo"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "tiempo",
+        "razon": "Imponen una penalidad diaria del 2% del valor total sin tope, generando una carga desproporcionada y potencialmente ilimitada para el contratista"
+      }
+    },
+    {
+      "id": 49,
+      "texto": "Las entregas efectuadas fuera del plazo acordado no serán pagadas al proveedor, quien además cubrirá el sobrecosto de adquirir los bienes con otro proveedor.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "tiempo"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "tiempo",
+        "razon": "Impone la pérdida total del pago y la obligación de cubrir costos adicionales por entregas tardías, trasladando una carga desproporcionada al proveedor."
+      }
+    },
+    {
+      "id": 50,
+      "texto": "El proveedor deberá instalar los equipos en el plazo que el comprador le indique por escrito, el cual podrá ser inferior a cinco días hábiles.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "tiempo"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "tiempo",
+        "razon": "Otorga al comprador la facultad unilateral de fijar plazos muy cortos, sin prever extensiones ni compensaciones, lo que puede generar incumplimiento y sanciones para el proveedor."
+      }
+    },
+    {
+      "id": 51,
+      "texto": "Los atrasos causados por otros subcontratistas o por el contratista principal no darán lugar a ampliación del plazo de ejecución.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "tiempo"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "tiempo",
+        "razon": "Impone al ejecutor la carga de los retrasos provocados por terceros sin posibilidad de ampliar el plazo, trasladando desproporcionadamente el riesgo de demora."
+      }
+    },
+    {
+      "id": 52,
+      "texto": "En caso de retraso injustificado en la entrega de informes se aplicará una penalidad del 0,1% diario sobre el valor del informe, con un tope máximo del 10% del valor del contrato.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "tiempo"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "tiempo",
+        "patrones_activados": [
+          "tiempo:penalidad"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "tiempo",
+        "patrones_activados": [
+          "tiempo:penalidad"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "tiempo",
+        "razon": "La penalidad por retraso está limitada al 10% del contrato y su cálculo diario es razonable, por lo que no implica una carga desproporcionada para el ejecutor."
+      }
+    },
+    {
+      "id": 53,
+      "texto": "El plazo de ejecución podrá prorrogarse de común acuerdo cuando se presenten lluvias excepcionales certificadas por el IDEAM.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "tiempo"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "tiempo",
+        "razon": "La cláusula solo permite prorrogar el plazo por lluvias excepcionales certificadas, con acuerdo mutuo, sin imponer cargas adicionales al contratista, por lo que no representa un riesgo contractual."
+      }
+    },
+    {
+      "id": 54,
+      "texto": "El proveedor entregará los equipos dentro de los 60 días calendario siguientes a la aprobación de la orden de compra.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "tiempo"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "tiempo",
+        "razon": "Establece un plazo de entrega razonable de 60 días calendario sin imponer penalidades excesivas o cargas desproporcionadas al proveedor."
+      }
+    },
+    {
+      "id": 55,
+      "texto": "El contratante se reserva la facultad de finalizar este acuerdo por decisión propia en cualquier tiempo, bastando un aviso de veinticuatro horas.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "razon": "Permite al contratante terminar unilateralmente el contrato en cualquier momento con solo 24 h de aviso, sin indemnización ni causa justificada, lo que genera incertidumbre y posible pérdida de ingresos para el ejecutor."
+      }
+    },
+    {
+      "id": 56,
+      "texto": "Las obras complementarias que ordene el contratista se entenderán incluidas en el precio global, sin que el subcontratista pueda reclamar pago adicional por ellas.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "pago",
+        "razon": "Obliga al subcontratista a ejecutar obras complementarias sin derecho a remuneración adicional, trasladando el riesgo de costos extra al ejecutor de forma desproporcionada."
+      }
+    },
+    {
+      "id": 57,
+      "texto": "El comprador podrá variar las cantidades solicitadas hasta en un cincuenta por ciento, en más o en menos, manteniendo los precios unitarios inicialmente pactados.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "razon": "Transfiere al contratista la obligación de aceptar variaciones de hasta ±50% en la cantidad sin ajuste de precios unitarios, lo que puede generar sobrecostos o pérdida de ingresos y genera incertidumbre económica."
+      }
+    },
+    {
+      "id": 58,
+      "texto": "Toda reclamación del contratista deberá presentarse dentro de los tres días siguientes al hecho que la origina; vencido este término, se entenderá que renuncia a ella.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "razon": "Impone un plazo extremadamente corto (3 días) para presentar cualquier reclamación, lo que limita desproporcionadamente los derechos del contratista y genera riesgo de perder sus pretensiones sin causa justificada."
+      }
+    },
+    {
+      "id": 59,
+      "texto": "La entidad solo podrá declarar la terminación unilateral en las causales previstas en la ley, previo debido proceso y con liquidación de lo ejecutado.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "patrones_activados": [
+          "procedimiento:terminaci[óo]n unilateral"
+        ]
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "patrones_activados": [
+          "procedimiento:terminaci[óo]n\\s+unilateral",
+          "procedimiento:termin\\w*.{0,40}unilateral"
+        ]
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "procedimiento",
+        "razon": "Limita la terminación unilateral a causales legales, exige debido proceso y garantiza la liquidación de lo ejecutado, lo que protege al contratista y no le impone cargas desproporcionadas."
+      }
+    },
+    {
+      "id": 60,
+      "texto": "Las partes podrán acordar por escrito la suspensión temporal del contrato, indicando la causa y la fecha estimada de reanudación.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "procedimiento",
+        "razon": "La suspensión temporal solo procede con acuerdo escrito de ambas partes, indicando causa y fecha estimada, sin unilateralidad ni penalidades, por lo que no genera una carga desproporcionada para la parte ejecutora."
+      }
+    },
+    {
+      "id": 61,
+      "texto": "Cualquier cambio en las condiciones de la orden de compra requerirá la aceptación escrita de ambas partes.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "procedimiento"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "procedimiento",
+        "razon": "Exige aceptación escrita de ambas partes para cualquier cambio, lo que es una práctica equilibrada y no impone cargas desproporcionadas al ejecutor."
+      }
+    },
+    {
+      "id": 62,
+      "texto": "El subcontratista exonerará y defenderá al contratista frente a toda demanda o reclamo que se presente con ocasión de las obras, cualquiera que sea su causa.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Imparte al subcontratista una obligación de indemnizar y defender al contratista por cualquier demanda o reclamo, sin limitar la causa ni el alcance, generando una responsabilidad ilimitada y desproporcionada para la parte ejecutora."
+      }
+    },
+    {
+      "id": 63,
+      "texto": "Los gastos de retiro, reemplazo y nueva entrega de la mercancía rechazada correrán por cuenta del proveedor, sin límite de cuantía.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Impone al proveedor la obligación de asumir sin límite los costos de retiro, reemplazo y re‑entrega de mercancía rechazada, generando una carga económica desproporcionada e incertidumbre financiera."
+      }
+    },
+    {
+      "id": 64,
+      "texto": "El consultor responderá por las pérdidas que sufra el cliente como consecuencia de las decisiones que adopte con base en sus informes.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Imparte una responsabilidad ilimitada al consultor por pérdidas derivadas de decisiones del cliente, trasladando riesgos desproporcionados sin contraprestación."
+      }
+    },
+    {
+      "id": 65,
+      "texto": "El proveedor responderá por los daños de los equipos aun cuando se deriven de un uso indebido o de la manipulación por parte del personal del comprador.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Imparte al proveedor una responsabilidad ilimitada por daños aun cuando el origen sea uso indebido o manipulación del personal del comprador, trasladando un riesgo desproporcionado a la parte ejecutora."
+      }
+    },
+    {
+      "id": 66,
+      "texto": "La responsabilidad de cada parte frente a la otra se limitará al valor total del contrato, salvo dolo o culpa grave.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "roles_responsabilidades",
+        "razon": "Limita la responsabilidad al valor del contrato, salvo dolo o culpa grave; es una cláusula estándar que protege al ejecutor y no traslada cargas desproporcionadas."
+      }
+    },
+    {
+      "id": 67,
+      "texto": "El contratista principal suministrará los planos y especificaciones técnicas necesarios para la ejecución de las actividades subcontratadas.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "roles_responsabilidades",
+        "razon": "Imparte al contratista principal la obligación de entregar planos y especificaciones, lo que beneficia al subcontratista; es una disposición estándar y equilibrada sin trasladar cargas indebidas."
+      }
+    },
+    {
+      "id": 68,
+      "texto": "El consultor será responsable únicamente de la calidad técnica de sus informes y no garantiza resultados comerciales.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "roles_responsabilidades"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "roles_responsabilidades",
+        "razon": "Limita la responsabilidad del consultor a la calidad técnica de sus informes y excluye la garantía de resultados comerciales, lo que no impone cargas desproporcionadas a la parte ejecutora."
+      }
+    },
+    {
+      "id": 69,
+      "texto": "El contratista asumirá las multas que impongan las autoridades por incumplimientos de seguridad industrial en la obra, incluso cuando se originen en instrucciones de la interventoría.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "seguridad"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Imparte al contratista la obligación de pagar multas de seguridad aunque se originen por instrucciones de la interventoría, generando una carga desproporcionada y sin compensación"
+      }
+    },
+    {
+      "id": 70,
+      "texto": "El subcontratista deberá iniciar labores en la fecha indicada aunque las pólizas y afiliaciones de su personal no hayan sido aprobadas, asumiendo cualquier consecuencia.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "seguridad"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Obliga al subcontratista a iniciar labores sin que sus pólizas y afiliaciones estén aprobadas, transfiriendo riesgos de cumplimiento, responsabilidad civil y laboral al ejecutor sin compensación ni garantía."
+      }
+    },
+    {
+      "id": 71,
+      "texto": "El proveedor asumirá los costos de cualquier accidente de trabajo ocurrido en las instalaciones del comprador, sin importar a quién sea imputable.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "seguridad"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "roles_responsabilidades",
+        "razon": "Imparte al proveedor una responsabilidad ilimitada por accidentes laborales, aun cuando no sea culpable, trasladando un riesgo desproporcionado de indemnización y costos"
+      }
+    },
+    {
+      "id": 72,
+      "texto": "Los vehículos del proveedor deberán contar con SOAT y revisión técnico-mecánica vigentes para ingresar a las bodegas del comprador.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "seguridad"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "seguridad",
+        "razon": "Exige al proveedor mantener seguros y revisiones vigentes, requisito estándar de seguridad y cumplimiento legal sin cargas desproporcionadas ni penalizaciones"
+      }
+    },
+    {
+      "id": 73,
+      "texto": "El consultor y su personal cumplirán el reglamento de higiene y seguridad del cliente durante las visitas a sus instalaciones.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "seguridad"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "seguridad",
+        "razon": "Obligación estándar de cumplir el reglamento de higiene y seguridad del cliente durante las visitas, sin trasladar cargas desproporcionadas ni limitar derechos del consultor."
+      }
+    },
+    {
+      "id": 74,
+      "texto": "El contratista implementará un plan de manejo de tráfico aprobado por la secretaría de movilidad antes de intervenir la vía.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "seguridad"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "procedimiento",
+        "razon": "Obligación estándar de obtener y ejecutar un plan de manejo de tráfico aprobado, sin carga desproporcionada ni penalizaciones para el contratista."
+      }
+    },
+    {
+      "id": 75,
+      "texto": "Para efectos de este contrato, se entenderá por fuerza mayor únicamente un desastre natural declarado oficialmente por el Gobierno Nacional; ningún otro evento tendrá esta calidad.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "definicion_referencia"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "definicion_referencia",
+        "razon": "Limita la definición de fuerza mayor a desastres naturales oficiales, excluyendo otros eventos que podrían afectar la ejecución, trasladando el riesgo al contratista al no permitirle excusarse por circunstancias imprevistas."
+      }
+    },
+    {
+      "id": 76,
+      "texto": "Se entenderá por 'aprobación del entregable' la manifestación expresa del cliente, sin que su silencio, cualquiera que sea su duración, implique aceptación.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "definicion_referencia"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "procedimiento",
+        "razon": "Establece que la aceptación del entregable debe ser expresa del cliente, evitando que el silencio implique aceptación y reduciendo incertidumbre para el contratista; no impone cargas desproporcionadas."
+      }
+    },
+    {
+      "id": 77,
+      "texto": "En caso de contradicción entre los documentos del contrato, prevalecerá siempre la interpretación que determine el comprador.",
+      "real": {
+        "es_riesgo": true,
+        "categoria": "definicion_referencia"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": true,
+        "categoria": "procedimiento",
+        "razon": "Otorga al comprador la autoridad exclusiva para interpretar contradicciones, trasladando unilateralmente la carga de riesgos interpretativos al contratista sin contrapartida"
+      }
+    },
+    {
+      "id": 78,
+      "texto": "Los términos con mayúscula inicial tendrán el significado que se les asigna en el contrato principal, el cual hace parte integral de este subcontrato.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "definicion_referencia"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "definicion_referencia",
+        "razon": "Es una cláusula de incorporación de definiciones del contrato principal, práctica estándar que no traslada cargas desproporcionadas al ejecutor"
+      }
+    },
+    {
+      "id": 79,
+      "texto": "Las referencias a 'días' se entenderán hechas a días hábiles, salvo que se indique expresamente que son calendario.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "definicion_referencia"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "definicion_referencia",
+        "razon": "La cláusula solo aclara la interpretación de la palabra 'días', sin imponer cargas ni limitar derechos; es una definición estándar y no genera riesgo contractual."
+      }
+    },
+    {
+      "id": 80,
+      "texto": "Los anexos técnicos, el cronograma y la propuesta del subcontratista forman parte integral del presente documento.",
+      "real": {
+        "es_riesgo": false,
+        "categoria": "definicion_referencia"
+      },
+      "Reglas (línea base)": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "Reglas afinadas*": {
+        "es_riesgo": false,
+        "categoria": "ninguna",
+        "patrones_activados": []
+      },
+      "LLM (openai/gpt-oss-120b)": {
+        "es_riesgo": false,
+        "categoria": "definicion_referencia",
+        "razon": "Simplemente incorpora los anexos técnicos, cronograma y propuesta del subcontratista como parte integral del contrato, lo cual es una cláusula definitoria y no traslada cargas desproporcionadas ni limita derechos."
+      }
+    }
+  ]
+}

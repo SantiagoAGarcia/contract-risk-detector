@@ -198,5 +198,205 @@
   "es_riesgo": false,
   "categoria": "seguridad",
   "razon": "Obligar al contratista a mantener pólizas de responsabilidad civil y cumplimiento es una práctica estándar de gestión de riesgos y no traslada cargas desproporcionadas ni limita derechos sin contraprestación."
+ },
+ "b53bb21819242107aedbcb56": {
+  "es_riesgo": true,
+  "categoria": "pago",
+  "razon": "Imparte al ejecutor la carga de absorber cualquier aumento de precios de materiales, sin posibilidad de reajuste, lo que genera un riesgo económico desproporcionado."
+ },
+ "1bff0a88cf01c39ac75235ac": {
+  "es_riesgo": true,
+  "categoria": "pago",
+  "razon": "La cláusula condiciona el pago a la disponibilidad de recursos del ministerio y no establece plazo máximo ni intereses por mora, generando incertidumbre y posible retraso indefinido del pago al contratista."
+ },
+ "530952a8c7a03f89583f2411": {
+  "es_riesgo": true,
+  "categoria": "pago",
+  "razon": "Retención del 20% de cada factura sin establecer una fecha de devolución genera incertidumbre y afecta la liquidez del proveedor, constituyendo una carga desproporcionada."
+ },
+ "5754a9daa03fea041f65bc26": {
+  "es_riesgo": true,
+  "categoria": "pago",
+  "razon": "Transfiere el riesgo de pago al subcontratista, ya que su cobro depende del momento en que el contratista principal reciba el pago del cliente, sin garantía de plazos ni intereses por mora, lo que genera incertidumbre y posible retraso en el pago."
+ },
+ "ecf4b06aa991e722645e1c8f": {
+  "es_riesgo": false,
+  "categoria": "pago",
+  "razon": "Establece ajuste anual de honorarios según el IPC certificado por el DANE, lo que protege al ejecutante contra la inflación y es una práctica contractual estándar."
+ },
+ "7d3ec6b6fd10bab7189f42dd": {
+  "es_riesgo": false,
+  "categoria": "pago",
+  "razon": "Establece la retención de impuestos en la fuente conforme a la normativa tributaria, práctica estándar y sin cargar obligaciones desproporcionadas al contratista."
+ },
+ "ebd2841334dc794070a982c6": {
+  "es_riesgo": false,
+  "categoria": "pago",
+  "razon": "Establece un plazo de pago de 45 días tras la aceptación de la mercancía, plazo razonable y sin cargas adicionales para el ejecutor."
+ },
+ "88c928fac704f5514f4d98e0": {
+  "es_riesgo": true,
+  "categoria": "tiempo",
+  "razon": "Imponen una penalidad diaria del 2% del valor total sin tope, generando una carga desproporcionada y potencialmente ilimitada para el contratista"
+ },
+ "52734b69b357b277520f12bd": {
+  "es_riesgo": true,
+  "categoria": "tiempo",
+  "razon": "Impone la pérdida total del pago y la obligación de cubrir costos adicionales por entregas tardías, trasladando una carga desproporcionada al proveedor."
+ },
+ "03c8423b9fb6f5269d934278": {
+  "es_riesgo": true,
+  "categoria": "tiempo",
+  "razon": "Otorga al comprador la facultad unilateral de fijar plazos muy cortos, sin prever extensiones ni compensaciones, lo que puede generar incumplimiento y sanciones para el proveedor."
+ },
+ "d337718f10dc9708140a39fb": {
+  "es_riesgo": true,
+  "categoria": "tiempo",
+  "razon": "Impone al ejecutor la carga de los retrasos provocados por terceros sin posibilidad de ampliar el plazo, trasladando desproporcionadamente el riesgo de demora."
+ },
+ "d2920da8e52e2e4a9cab9da0": {
+  "es_riesgo": false,
+  "categoria": "tiempo",
+  "razon": "La penalidad por retraso está limitada al 10% del contrato y su cálculo diario es razonable, por lo que no implica una carga desproporcionada para el ejecutor."
+ },
+ "d0dff1e506cff63f00b33740": {
+  "es_riesgo": false,
+  "categoria": "tiempo",
+  "razon": "La cláusula solo permite prorrogar el plazo por lluvias excepcionales certificadas, con acuerdo mutuo, sin imponer cargas adicionales al contratista, por lo que no representa un riesgo contractual."
+ },
+ "b455da032d5d1f8025c17450": {
+  "es_riesgo": false,
+  "categoria": "tiempo",
+  "razon": "Establece un plazo de entrega razonable de 60 días calendario sin imponer penalidades excesivas o cargas desproporcionadas al proveedor."
+ },
+ "9497109f5e4057ca3fa69b14": {
+  "es_riesgo": true,
+  "categoria": "procedimiento",
+  "razon": "Permite al contratante terminar unilateralmente el contrato en cualquier momento con solo 24 h de aviso, sin indemnización ni causa justificada, lo que genera incertidumbre y posible pérdida de ingresos para el ejecutor."
+ },
+ "94bf80a5813458a28b66c0cc": {
+  "es_riesgo": true,
+  "categoria": "pago",
+  "razon": "Obliga al subcontratista a ejecutar obras complementarias sin derecho a remuneración adicional, trasladando el riesgo de costos extra al ejecutor de forma desproporcionada."
+ },
+ "300f9ada7e410d6967c46f41": {
+  "es_riesgo": true,
+  "categoria": "procedimiento",
+  "razon": "Transfiere al contratista la obligación de aceptar variaciones de hasta ±50% en la cantidad sin ajuste de precios unitarios, lo que puede generar sobrecostos o pérdida de ingresos y genera incertidumbre económica."
+ },
+ "2f53b0b7c945d4a104e08e39": {
+  "es_riesgo": true,
+  "categoria": "procedimiento",
+  "razon": "Impone un plazo extremadamente corto (3 días) para presentar cualquier reclamación, lo que limita desproporcionadamente los derechos del contratista y genera riesgo de perder sus pretensiones sin causa justificada."
+ },
+ "2da4f11045f65550dd4d1855": {
+  "es_riesgo": false,
+  "categoria": "procedimiento",
+  "razon": "Limita la terminación unilateral a causales legales, exige debido proceso y garantiza la liquidación de lo ejecutado, lo que protege al contratista y no le impone cargas desproporcionadas."
+ },
+ "24250562aa4dd267931cb107": {
+  "es_riesgo": false,
+  "categoria": "procedimiento",
+  "razon": "La suspensión temporal solo procede con acuerdo escrito de ambas partes, indicando causa y fecha estimada, sin unilateralidad ni penalidades, por lo que no genera una carga desproporcionada para la parte ejecutora."
+ },
+ "09e5452f50abac24134993d8": {
+  "es_riesgo": false,
+  "categoria": "procedimiento",
+  "razon": "Exige aceptación escrita de ambas partes para cualquier cambio, lo que es una práctica equilibrada y no impone cargas desproporcionadas al ejecutor."
+ },
+ "37c98179d489fa6724632f61": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Imparte al subcontratista una obligación de indemnizar y defender al contratista por cualquier demanda o reclamo, sin limitar la causa ni el alcance, generando una responsabilidad ilimitada y desproporcionada para la parte ejecutora."
+ },
+ "c1e00b0d502d6f82bd843f2a": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Impone al proveedor la obligación de asumir sin límite los costos de retiro, reemplazo y re‑entrega de mercancía rechazada, generando una carga económica desproporcionada e incertidumbre financiera."
+ },
+ "d2129426a72b57185bd42014": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Imparte una responsabilidad ilimitada al consultor por pérdidas derivadas de decisiones del cliente, trasladando riesgos desproporcionados sin contraprestación."
+ },
+ "acc640d13ada66f6be0f28d9": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Imparte al proveedor una responsabilidad ilimitada por daños aun cuando el origen sea uso indebido o manipulación del personal del comprador, trasladando un riesgo desproporcionado a la parte ejecutora."
+ },
+ "77e3ad214f9a94881995005a": {
+  "es_riesgo": false,
+  "categoria": "roles_responsabilidades",
+  "razon": "Limita la responsabilidad al valor del contrato, salvo dolo o culpa grave; es una cláusula estándar que protege al ejecutor y no traslada cargas desproporcionadas."
+ },
+ "1eb2f0e4c545168d06a2d3ce": {
+  "es_riesgo": false,
+  "categoria": "roles_responsabilidades",
+  "razon": "Imparte al contratista principal la obligación de entregar planos y especificaciones, lo que beneficia al subcontratista; es una disposición estándar y equilibrada sin trasladar cargas indebidas."
+ },
+ "041fea49c6dde69d1cb9e633": {
+  "es_riesgo": false,
+  "categoria": "roles_responsabilidades",
+  "razon": "Limita la responsabilidad del consultor a la calidad técnica de sus informes y excluye la garantía de resultados comerciales, lo que no impone cargas desproporcionadas a la parte ejecutora."
+ },
+ "42b0cbaae9bb262285be13f7": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Imparte al contratista la obligación de pagar multas de seguridad aunque se originen por instrucciones de la interventoría, generando una carga desproporcionada y sin compensación"
+ },
+ "5154f1c65e7af22e66a234f5": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Obliga al subcontratista a iniciar labores sin que sus pólizas y afiliaciones estén aprobadas, transfiriendo riesgos de cumplimiento, responsabilidad civil y laboral al ejecutor sin compensación ni garantía."
+ },
+ "1aa9f8a14ff27e4b738fd1c3": {
+  "es_riesgo": true,
+  "categoria": "roles_responsabilidades",
+  "razon": "Imparte al proveedor una responsabilidad ilimitada por accidentes laborales, aun cuando no sea culpable, trasladando un riesgo desproporcionado de indemnización y costos"
+ },
+ "aa48fd2e32d0b5fb32d4044e": {
+  "es_riesgo": false,
+  "categoria": "seguridad",
+  "razon": "Exige al proveedor mantener seguros y revisiones vigentes, requisito estándar de seguridad y cumplimiento legal sin cargas desproporcionadas ni penalizaciones"
+ },
+ "80fe5cf0ba587be3af01bc5d": {
+  "es_riesgo": false,
+  "categoria": "seguridad",
+  "razon": "Obligación estándar de cumplir el reglamento de higiene y seguridad del cliente durante las visitas, sin trasladar cargas desproporcionadas ni limitar derechos del consultor."
+ },
+ "601c752dd10d564a81ecde9c": {
+  "es_riesgo": false,
+  "categoria": "procedimiento",
+  "razon": "Obligación estándar de obtener y ejecutar un plan de manejo de tráfico aprobado, sin carga desproporcionada ni penalizaciones para el contratista."
+ },
+ "4f2512da1a01915ff890e445": {
+  "es_riesgo": true,
+  "categoria": "definicion_referencia",
+  "razon": "Limita la definición de fuerza mayor a desastres naturales oficiales, excluyendo otros eventos que podrían afectar la ejecución, trasladando el riesgo al contratista al no permitirle excusarse por circunstancias imprevistas."
+ },
+ "5fff245646703d2ee81650f1": {
+  "es_riesgo": false,
+  "categoria": "procedimiento",
+  "razon": "Establece que la aceptación del entregable debe ser expresa del cliente, evitando que el silencio implique aceptación y reduciendo incertidumbre para el contratista; no impone cargas desproporcionadas."
+ },
+ "17c7e7408e2b2d3e6f3aabe6": {
+  "es_riesgo": true,
+  "categoria": "procedimiento",
+  "razon": "Otorga al comprador la autoridad exclusiva para interpretar contradicciones, trasladando unilateralmente la carga de riesgos interpretativos al contratista sin contrapartida"
+ },
+ "8d48cd82410c10943bf78899": {
+  "es_riesgo": false,
+  "categoria": "definicion_referencia",
+  "razon": "Es una cláusula de incorporación de definiciones del contrato principal, práctica estándar que no traslada cargas desproporcionadas al ejecutor"
+ },
+ "c8f1156b45ed252f9a942222": {
+  "es_riesgo": false,
+  "categoria": "definicion_referencia",
+  "razon": "La cláusula solo aclara la interpretación de la palabra 'días', sin imponer cargas ni limitar derechos; es una definición estándar y no genera riesgo contractual."
+ },
+ "592a5983e15157fc1b091878": {
+  "es_riesgo": false,
+  "categoria": "definicion_referencia",
+  "razon": "Simplemente incorpora los anexos técnicos, cronograma y propuesta del subcontratista como parte integral del contrato, lo cual es una cláusula definitoria y no traslada cargas desproporcionadas ni limita derechos."
  }
 }

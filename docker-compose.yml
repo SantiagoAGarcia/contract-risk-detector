@@ -1,0 +1,52 @@
+# Entorno local: PostgreSQL + migración + API.
+#   docker compose up --build
+#   docker compose exec api python manage.py seed-demo   # crea 2 organizaciones demo
+#
+# Variables opcionales (en un archivo .env junto a este archivo o en el entorno):
+#   POSTGRES_PASSWORD, APP_DB_PASSWORD, API_PORT, DB_PORT, LLM_API_KEY, LLM_BASE_URL, LLM_MODEL
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin_dev}
+      POSTGRES_DB: contracts
+    ports:
+      - "127.0.0.1:${DB_PORT:-5432}:5432"   # solo accesible desde esta máquina
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d contracts"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  # Aplica el esquema (rol app_user, tablas, RLS) y termina.
+  migrate:
+    build: .
+    command: ["python", "manage.py", "init-db"]
+    environment:
+      ADMIN_DATABASE_URL: postgresql://admin:${POSTGRES_PASSWORD:-admin_dev}@db:5432/contracts
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:-app_dev}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  api:
+    build: .
+    environment:
+      # La API usa el rol sin privilegios: RLS se aplica a todas sus consultas.
+      DATABASE_URL: postgresql://app_user:${APP_DB_PASSWORD:-app_dev}@db:5432/contracts
+      # Solo para los comandos de manage.py ejecutados dentro del contenedor.
+      ADMIN_DATABASE_URL: postgresql://admin:${POSTGRES_PASSWORD:-admin_dev}@db:5432/contracts
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      LLM_MODEL: ${LLM_MODEL:-}
+    ports:
+      - "${API_PORT:-8000}:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+volumes:
+  pgdata:
