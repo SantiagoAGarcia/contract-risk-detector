@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import time
 from functools import lru_cache
+from pathlib import Path
 from typing import Literal, Optional
 from uuid import UUID
 
@@ -153,6 +154,19 @@ class ClauseResponse(BaseModel):
 # ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
+BASE_DIR = Path(__file__).parent
+TEMPLATES_DIR = BASE_DIR / "templates"
+
+
+@app.get("/", response_class=HTMLResponse)
+def index() -> HTMLResponse:
+    """Interfaz web visual interactiva para clasificar cláusulas y auditar contratos."""
+    html_path = TEMPLATES_DIR / "index.html"
+    if html_path.exists():
+        return HTMLResponse(content=html_path.read_text(encoding="utf-8"))
+    return HTMLResponse("<h1>Detector de Cláusulas de Riesgo</h1><p><a href='/docs'>Swagger API</a></p>")
+
+
 @app.get("/health")
 def health(tenant_id: str = Depends(get_tenant_id)) -> dict:
     return {"status": "ok", "tenant_id": tenant_id}

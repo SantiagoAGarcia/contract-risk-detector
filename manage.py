@@ -40,6 +40,11 @@ DEMO_TENANTS = [
     ("empresa-demo-2", "Suministros Demo Dos Ltda.", False),
 ]
 
+DEMO_API_KEYS = {
+    "empresa-demo-1": "crd_demo_empresa_uno_llm_key",
+    "empresa-demo-2": "crd_demo_empresa_dos_reglas_key",
+}
+
 
 def connect() -> psycopg.Connection:
     url = os.getenv("ADMIN_DATABASE_URL")
@@ -133,10 +138,16 @@ def seed_demo(_args) -> None:
         for tid, nombre, llm in DEMO_TENANTS:
             conn.execute(
                 "INSERT INTO tenants (id, nombre, llm_habilitado) VALUES (%s, %s, %s) "
-                "ON CONFLICT (id) DO NOTHING",
+                "ON CONFLICT (id) DO UPDATE SET llm_habilitado = EXCLUDED.llm_habilitado",
                 (tid, nombre, llm),
             )
-            clave = _crear_key(conn, tid, "demo")
+            clave = DEMO_API_KEYS.get(tid, generate_api_key())
+            khash = hash_api_key(clave)
+            conn.execute(
+                "INSERT INTO api_keys (tenant_id, key_hash, prefijo, descripcion) VALUES (%s, %s, %s, %s) "
+                "ON CONFLICT (key_hash) DO NOTHING",
+                (tid, khash, clave[:12], "demo"),
+            )
             print(f"{tid} (LLM {'sí' if llm else 'no'}): {clave}")
     print("\nGuarde estas claves: no se vuelven a mostrar.")
 

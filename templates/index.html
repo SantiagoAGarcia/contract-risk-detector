@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detector de Cláusulas de Riesgo | Contract Risk Detector</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- Header / Navbar -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+          <i data-lucide="shield-alert" class="w-6 h-6 text-white"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight text-white flex items-center gap-2">
+            Contract Risk Detector
+            <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">v0.2.0</span>
+          </h1>
+          <p class="text-xs text-slate-400">Auditoría inteligente de contratos en español</p>
+        </div>
+      </div>
+
+      <!-- Tenant & Key Pill / Links -->
+      <div class="flex items-center gap-3">
+        <button onclick="toggleConfigModal()" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-slate-300 transition">
+          <i data-lucide="building-2" class="w-3.5 h-3.5 text-indigo-400"></i>
+          <span id="current-tenant-badge">empresa-demo-2</span>
+          <i data-lucide="settings" class="w-3 h-3 text-slate-400 ml-1"></i>
+        </button>
+
+        <a href="/docs" target="_blank" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600/10 hover:bg-indigo-600/20 border border-indigo-500/30 text-xs font-medium text-indigo-300 transition">
+          <i data-lucide="code-2" class="w-3.5 h-3.5"></i>
+          <span>Swagger API</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    
+    <!-- Hero Banner -->
+    <div class="bg-gradient-to-r from-slate-800/80 via-slate-800/40 to-slate-800/80 border border-slate-700/60 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+      <div class="space-y-2 max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Sistema Multi-Tenant y Seguridad RLS Activa
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          Detecta cláusulas abusivas y desequilibrios contractuales
+        </h2>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          Analiza contratos de obra y proveeduría en segundos con clasificación automatizada tipo semáforo (rojo, amarillo y verde).
+        </p>
+      </div>
+
+      <!-- Quick Metrics -->
+      <div class="grid grid-cols-3 gap-3 w-full md:w-auto text-center">
+        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 min-w-[90px]">
+          <div class="text-red-400 font-bold text-xl flex items-center justify-center gap-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Alto
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">Crítico</div>
+        </div>
+        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 min-w-[90px]">
+          <div class="text-amber-400 font-bold text-xl flex items-center justify-center gap-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Medio
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">Moderado</div>
+        </div>
+        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 min-w-[90px]">
+          <div class="text-emerald-400 font-bold text-xl flex items-center justify-center gap-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Normal
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">Estándar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="border-b border-slate-800 flex space-x-8">
+      <button onclick="switchTab('clause')" id="tab-btn-clause" class="py-3 px-1 border-b-2 font-medium text-sm flex items-center gap-2 border-indigo-500 text-indigo-400">
+        <i data-lucide="file-text" class="w-4 h-4"></i>
+        Analizar Cláusula
+      </button>
+      <button onclick="switchTab('pdf')" id="tab-btn-pdf" class="py-3 px-1 border-b-2 font-medium text-sm flex items-center gap-2 border-transparent text-slate-400 hover:text-slate-200">
+        <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+        Auditoría de Contrato (PDF)
+      </button>
+      <button onclick="switchTab('history')" id="tab-btn-history" class="py-3 px-1 border-b-2 font-medium text-sm flex items-center gap-2 border-transparent text-slate-400 hover:text-slate-200">
+        <i data-lucide="history" class="w-4 h-4"></i>
+        Historial de Contratos
+      </button>
+    </div>
+
+    <!-- ==================== TAB 1: CLAUSE ANALYZER ==================== -->
+    <section id="tab-clause" class="space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left: Form -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-5 space-y-4 shadow-lg">
+            <div class="flex items-center justify-between">
+              <label class="text-sm font-semibold text-slate-200 flex items-center gap-2">
+                <i data-lucide="edit-3" class="w-4 h-4 text-indigo-400"></i>
+                Texto de la cláusula
+              </label>
+              <span class="text-xs text-slate-400" id="char-counter">0 caracteres</span>
+            </div>
+
+            <textarea id="clause-input" rows="5" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" placeholder="Pega aquí la cláusula a analizar (ejemplo: 'El contratista responderá por cualquier retraso fortuito o de fuerza mayor...')."></textarea>
+
+            <!-- Quick sample buttons -->
+            <div class="space-y-2">
+              <span class="text-xs text-slate-400 font-medium">Ejemplos de prueba rápida:</span>
+              <div class="flex flex-wrap gap-2">
+                <button type="button" onclick="loadSample(1)" class="text-xs px-2.5 py-1 rounded-md bg-slate-700 hover:bg-slate-600 text-slate-200 border border-slate-600 transition flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-red-400"></span> Retención abusiva de pago
+                </button>
+                <button type="button" onclick="loadSample(2)" class="text-xs px-2.5 py-1 rounded-md bg-slate-700 hover:bg-slate-600 text-slate-200 border border-slate-600 transition flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-amber-400"></span> Penalidad por retraso
+                </button>
+                <button type="button" onclick="loadSample(3)" class="text-xs px-2.5 py-1 rounded-md bg-slate-700 hover:bg-slate-600 text-slate-200 border border-slate-600 transition flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Cláusula estándar (Sin riesgo)
+                </button>
+              </div>
+            </div>
+
+            <!-- Action button -->
+            <div class="pt-2 flex items-center justify-between">
+              <div class="text-xs text-slate-400 flex items-center gap-1.5">
+                <i data-lucide="cpu" class="w-3.5 h-3.5 text-indigo-400"></i>
+                Motor: <strong class="text-slate-300">Reglas Regex</strong>
+              </div>
+              <button onclick="analyzeClause()" id="btn-analyze-clause" class="px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm shadow-lg shadow-indigo-600/30 flex items-center gap-2 transition active:scale-95">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                <span>Analizar Cláusula</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Results Card -->
+        <div class="lg:col-span-5">
+          <div id="clause-result-placeholder" class="h-full min-h-[300px] bg-slate-800/30 border border-dashed border-slate-700/60 rounded-xl p-8 flex flex-col items-center justify-center text-center text-slate-500 space-y-3">
+            <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
+              <i data-lucide="clipboard-check" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <p class="font-medium text-slate-400">Esperando cláusula</p>
+              <p class="text-xs text-slate-500 mt-1 max-w-xs">Ingresa un texto o elige uno de los ejemplos para ver el resultado del análisis semáforo.</p>
+            </div>
+          </div>
+
+          <!-- Dynamic Result Container -->
+          <div id="clause-result-card" class="hidden bg-slate-800/80 border border-slate-700 rounded-xl p-6 space-y-5 shadow-xl animate-fade-in">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-700/60">
+              <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Resultado del Análisis</span>
+              <span id="response-time-badge" class="text-xs text-slate-400 font-mono">1.2 ms</span>
+            </div>
+
+            <!-- Big Status Pill -->
+            <div id="result-status-banner" class="rounded-xl p-4 flex items-center gap-4">
+              <div id="result-status-icon" class="w-12 h-12 rounded-lg flex items-center justify-center font-bold text-2xl">
+              </div>
+              <div>
+                <h3 id="result-status-title" class="text-lg font-bold"></h3>
+                <p id="result-status-desc" class="text-xs opacity-90"></p>
+              </div>
+            </div>
+
+            <!-- Details -->
+            <div class="space-y-3 text-sm">
+              <div class="flex justify-between items-center py-2 border-b border-slate-700/40">
+                <span class="text-slate-400 text-xs">Categoría:</span>
+                <span id="result-category" class="font-semibold text-slate-200"></span>
+              </div>
+              <div class="flex justify-between items-center py-2 border-b border-slate-700/40">
+                <span class="text-slate-400 text-xs">Es Riesgo:</span>
+                <span id="result-is-risk" class="font-semibold"></span>
+              </div>
+              <div class="space-y-1 py-1">
+                <span class="text-slate-400 text-xs">Razón de la clasificación:</span>
+                <p id="result-reason" class="text-xs text-slate-300 bg-slate-900/60 p-2.5 rounded-lg border border-slate-700/50"></p>
+              </div>
+              <div id="result-patterns-container" class="space-y-1 py-1 hidden">
+                <span class="text-slate-400 text-xs">Patrones activados:</span>
+                <div id="result-patterns" class="flex flex-wrap gap-1.5 pt-1"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: PDF CONTRACT AUDIT ==================== -->
+    <section id="tab-pdf" class="hidden space-y-6">
+      <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-6 space-y-6 shadow-lg">
+        <div>
+          <h3 class="text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="file-check-2" class="w-5 h-5 text-indigo-400"></i>
+            Auditar Contrato Completo en PDF
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">El sistema extraerá cada cláusula, la clasificará individualmente y generará un reporte de semáforo global.</p>
+        </div>
+
+        <!-- Dropzone -->
+        <div id="pdf-dropzone" onclick="document.getElementById('pdf-file-input').click()" class="border-2 border-dashed border-slate-700 hover:border-indigo-500/80 bg-slate-900/50 hover:bg-slate-900 transition rounded-xl p-8 flex flex-col items-center justify-center text-center cursor-pointer group">
+          <input type="file" id="pdf-file-input" accept="application/pdf" class="hidden" onchange="handleFileSelected(event)">
+          <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 group-hover:bg-indigo-500/20 text-indigo-400 flex items-center justify-center transition mb-3">
+            <i data-lucide="upload" class="w-7 h-7"></i>
+          </div>
+          <p class="text-sm font-semibold text-slate-200" id="selected-file-label">Haz clic o arrastra un contrato en formato PDF aquí</p>
+          <p class="text-xs text-slate-500 mt-1">Límite máximo de 10 MB (hasta 300 cláusulas)</p>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+          <div class="flex items-center gap-3">
+            <label class="text-xs text-slate-400">Modo de análisis:</label>
+            <select id="pdf-mode-select" class="bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+              <option value="reglas" selected>Motor de Reglas (Sin LLM)</option>
+              <option value="llm">Motor LLM (Requiere opt-in y API Key)</option>
+            </select>
+          </div>
+
+          <button onclick="uploadAndAnalyzePDF()" id="btn-upload-pdf" class="px-6 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm shadow-lg shadow-indigo-600/30 flex items-center gap-2 transition disabled:opacity-50 disabled:cursor-not-allowed">
+            <i data-lucide="play" class="w-4 h-4"></i>
+            <span>Iniciar Análisis del Contrato</span>
+          </button>
+        </div>
+
+        <!-- PDF Loader -->
+        <div id="pdf-loader" class="hidden py-10 flex flex-col items-center justify-center space-y-3">
+          <div class="w-10 h-10 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin"></div>
+          <p class="text-sm font-medium text-slate-300">Extrayendo texto y analizando cláusulas...</p>
+        </div>
+
+        <!-- PDF Results View -->
+        <div id="pdf-results-view" class="hidden space-y-6 pt-4 border-t border-slate-700/60">
+          
+          <!-- Summary Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <!-- Global Risk Level -->
+            <div id="pdf-global-card" class="rounded-xl p-4 border flex items-center gap-3">
+              <div id="pdf-global-icon" class="w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold"></div>
+              <div>
+                <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Nivel Global</span>
+                <h4 id="pdf-global-level" class="text-lg font-bold"></h4>
+              </div>
+            </div>
+
+            <!-- Risk Score -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Score de Riesgo</span>
+              <div class="text-2xl font-black text-white mt-1" id="pdf-risk-score">0%</div>
+              <p class="text-[11px] text-slate-400 mt-0.5">Cláusulas rojas o amarillas</p>
+            </div>
+
+            <!-- Total Clauses -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Total Cláusulas</span>
+              <div class="text-2xl font-black text-white mt-1" id="pdf-total-clauses">0</div>
+              <p class="text-[11px] text-slate-400 mt-0.5">Segmentadas del PDF</p>
+            </div>
+
+            <!-- Actions -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-center">
+              <a id="btn-view-full-report" href="#" target="_blank" class="w-full text-center px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold shadow transition flex items-center justify-center gap-1.5">
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                Ver Reporte Completo (HTML)
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Color Breakdown -->
+          <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 space-y-3">
+            <h5 class="text-xs font-semibold uppercase tracking-wider text-slate-400">Distribución de Riesgo</h5>
+            <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden flex" id="pdf-progress-bar">
+              <div id="bar-red" class="bg-red-500 h-full" style="width: 0%"></div>
+              <div id="bar-yellow" class="bg-amber-400 h-full" style="width: 0%"></div>
+              <div id="bar-green" class="bg-emerald-500 h-full" style="width: 0%"></div>
+            </div>
+            <div class="flex justify-between text-xs text-slate-400 pt-1">
+              <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-500"></span> Rojas: <strong id="count-red" class="text-slate-200">0</strong></span>
+              <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Amarillas: <strong id="count-yellow" class="text-slate-200">0</strong></span>
+              <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Verdes: <strong id="count-green" class="text-slate-200">0</strong></span>
+            </div>
+          </div>
+
+          <!-- Clauses Table -->
+          <div class="space-y-3">
+            <h5 class="text-sm font-semibold text-slate-200">Detalle de Cláusulas Analizadas</h5>
+            <div class="max-h-96 overflow-y-auto border border-slate-800 rounded-xl divide-y divide-slate-800" id="pdf-clauses-list">
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: CONTRACT HISTORY ==================== -->
+    <section id="tab-history" class="hidden space-y-6">
+      <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-6 space-y-4 shadow-lg">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+              <i data-lucide="archive" class="w-5 h-5 text-indigo-400"></i>
+              Historial de Contratos Analizados
+            </h3>
+            <p class="text-xs text-slate-400 mt-1">Registros aislados por organización mediante Row Level Security en PostgreSQL.</p>
+          </div>
+          <button onclick="loadContractHistory()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-slate-300 flex items-center gap-1.5 transition">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+            Actualizar
+          </button>
+        </div>
+
+        <div id="history-container" class="divide-y divide-slate-800 border border-slate-800 rounded-xl overflow-hidden">
+          <div class="p-8 text-center text-slate-500 text-sm">Cargando contratos...</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Settings Modal -->
+  <div id="config-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl animate-fade-in">
+      <div class="flex items-center justify-between">
+        <h3 class="font-bold text-white text-base flex items-center gap-2">
+          <i data-lucide="key" class="w-4 h-4 text-indigo-400"></i>
+          Configuración de Acceso Multi-Tenant
+        </h3>
+        <button onclick="toggleConfigModal()" class="text-slate-400 hover:text-slate-200">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">X-Tenant-ID (Organización):</label>
+          <input type="text" id="config-tenant-input" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+          <p class="text-[11px] text-slate-400 mt-1">Por defecto: <code class="text-indigo-300">empresa-demo-2</code></p>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">X-API-Key:</label>
+          <input type="text" id="config-key-input" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-slate-100 font-mono focus:outline-none focus:ring-1 focus:ring-indigo-500">
+          <p class="text-[11px] text-slate-400 mt-1">Clave de autenticación SHA-256 de la organización.</p>
+        </div>
+      </div>
+
+      <div class="pt-2 flex justify-end gap-2">
+        <button onclick="resetDefaultConfig()" class="px-3 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-xs font-semibold text-slate-200 transition">
+          Restaurar Demo
+        </button>
+        <button onclick="saveConfigModal()" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white transition">
+          Guardar Cambios
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 py-4 text-center text-xs text-slate-500">
+    <p>Detector de Cláusulas de Riesgo — Proyecto TDSE. FastAPI + PostgreSQL (RLS) + Python 3.11</p>
+  </footer>
+
+  <!-- Client Script -->
+  <script>
+    // Configuración por defecto
+    const DEFAULT_TENANT = "empresa-demo-2";
+    const DEFAULT_KEY = "crd_demo_empresa_dos_reglas_key";
+
+    function getTenant() {
+      return localStorage.getItem("crd_tenant") || DEFAULT_TENANT;
+    }
+    function getKey() {
+      return localStorage.getItem("crd_key") || DEFAULT_KEY;
+    }
+
+    function updateBadge() {
+      const badge = document.getElementById("current-tenant-badge");
+      if (badge) badge.innerText = getTenant();
+    }
+
+    // Modal
+    function toggleConfigModal() {
+      const modal = document.getElementById("config-modal");
+      modal.classList.toggle("hidden");
+      if (!modal.classList.contains("hidden")) {
+        document.getElementById("config-tenant-input").value = getTenant();
+        document.getElementById("config-key-input").value = getKey();
+      }
+    }
+
+    function saveConfigModal() {
+      const t = document.getElementById("config-tenant-input").value.trim() || DEFAULT_TENANT;
+      const k = document.getElementById("config-key-input").value.trim() || DEFAULT_KEY;
+      localStorage.setItem("crd_tenant", t);
+      localStorage.setItem("crd_key", k);
+      toggleConfigModal();
+      updateBadge();
+    }
+
+    function resetDefaultConfig() {
+      localStorage.setItem("crd_tenant", DEFAULT_TENANT);
+      localStorage.setItem("crd_key", DEFAULT_KEY);
+      document.getElementById("config-tenant-input").value = DEFAULT_TENANT;
+      document.getElementById("config-key-input").value = DEFAULT_KEY;
+      toggleConfigModal();
+      updateBadge();
+    }
+
+    // Navigation Tabs
+    function switchTab(tab) {
+      ['clause', 'pdf', 'history'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.add('hidden');
+        document.getElementById(`tab-btn-${t}`).classList.remove('border-indigo-500', 'text-indigo-400');
+        document.getElementById(`tab-btn-${t}`).classList.add('border-transparent', 'text-slate-400');
+      });
+      document.getElementById(`tab-${tab}`).classList.remove('hidden');
+      document.getElementById(`tab-btn-${tab}`).classList.add('border-indigo-500', 'text-indigo-400');
+      document.getElementById(`tab-btn-${tab}`).classList.remove('border-transparent', 'text-slate-400');
+
+      if (tab === 'history') {
+        loadContractHistory();
+      }
+    }
+
+    // Quick Samples
+    const samples = {
+      1: "El cliente retendrá el cincuenta por ciento (50%) de la totalidad de los honorarios y pagos devengados durante un período de veinticuatro (24) meses contados a partir de la entrega final de la obra, sin reconocimiento de intereses.",
+      2: "Cualquier retraso en el cronograma estipulado, sin importar si obedece a caso fortuito, fuerza mayor o causas ajenas al contratista, causará una penalidad diaria no revisable equivalente al quince por ciento (15%) del valor global del contrato.",
+      3: "Para todos los efectos legales y judiciales derivados del presente contrato, las partes acuerdan fijar su domicilio en la ciudad de Bogotá D.C. y se someten a la jurisdicción de sus tribunales ordinarios."
+    };
+
+    function loadSample(num) {
+      const input = document.getElementById('clause-input');
+      input.value = samples[num];
+      document.getElementById('char-counter').innerText = `${input.value.length} caracteres`;
+    }
+
+    document.getElementById('clause-input').addEventListener('input', (e) => {
+      document.getElementById('char-counter').innerText = `${e.target.value.length} caracteres`;
+    });
+
+    // Analyze single clause
+    async function analyzeClause() {
+      const text = document.getElementById('clause-input').value.trim();
+      if (!text) {
+        alert("Por favor ingresa o selecciona una cláusula primero.");
+        return;
+      }
+
+      const btn = document.getElementById('btn-analyze-clause');
+      btn.disabled = true;
+      btn.innerHTML = `<div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> Analizando...`;
+
+      try {
+        const start = performance.now();
+        const res = await fetch('/api/v1/classify-clause', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Tenant-ID': getTenant(),
+            'X-API-Key': getKey()
+          },
+          body: JSON.stringify({ texto: text, modo: 'reglas' })
+        });
+
+        const elapsed = Math.round(performance.now() - start);
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({ detail: res.statusText }));
+          alert(`Error ${res.status}: ${errData.detail || 'Fallo en la clasificación'}`);
+          return;
+        }
+
+        const data = await res.json();
+        renderClauseResult(data, elapsed);
+
+      } catch (err) {
+        alert("Error de conexión: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4"></i><span>Analizar Cláusula</span>`;
+        lucide.createIcons();
+      }
+    }
+
+    function renderClauseResult(data, elapsed) {
+      document.getElementById('clause-result-placeholder').classList.add('hidden');
+      const card = document.getElementById('clause-result-card');
+      card.classList.remove('hidden');
+
+      document.getElementById('response-time-badge').innerText = `${elapsed} ms`;
+
+      const banner = document.getElementById('result-status-banner');
+      const icon = document.getElementById('result-status-icon');
+      const title = document.getElementById('result-status-title');
+      const desc = document.getElementById('result-status-desc');
+
+      banner.className = "rounded-xl p-4 flex items-center gap-4 ";
+      icon.className = "w-12 h-12 rounded-lg flex items-center justify-center font-bold text-2xl ";
+
+      if (data.nivel === "rojo") {
+        banner.classList.add("bg-red-500/10", "border", "border-red-500/30", "text-red-400");
+        icon.classList.add("bg-red-500/20", "text-red-400");
+        icon.innerHTML = `<i data-lucide="alert-octagon" class="w-6 h-6"></i>`;
+        title.innerText = "Alto Riesgo Detectado";
+        desc.innerText = "Esta cláusula presenta un grave desequilibrio contractual o condición abusiva.";
+      } else if (data.nivel === "amarillo") {
+        banner.classList.add("bg-amber-500/10", "border", "border-amber-500/30", "text-amber-400");
+        icon.classList.add("bg-amber-500/20", "text-amber-400");
+        icon.innerHTML = `<i data-lucide="alert-triangle" class="w-6 h-6"></i>`;
+        title.innerText = "Riesgo Moderado";
+        desc.innerText = "Contiene condiciones que requieren revisión o aclaración entre las partes.";
+      } else {
+        banner.classList.add("bg-emerald-500/10", "border", "border-emerald-500/30", "text-emerald-400");
+        icon.classList.add("bg-emerald-500/20", "text-emerald-400");
+        icon.innerHTML = `<i data-lucide="check-circle-2" class="w-6 h-6"></i>`;
+        title.innerText = "Cláusula Estándar (Sin Riesgo)";
+        desc.innerText = "No se detectaron condiciones abusivas ni cláusulas desproporcionadas.";
+      }
+
+      document.getElementById('result-category').innerText = data.categoria || "Ninguna";
+      const isRiskEl = document.getElementById('result-is-risk');
+      isRiskEl.innerText = data.es_riesgo ? "Sí (Riesgo Identificado)" : "No";
+      isRiskEl.className = data.es_riesgo ? "font-semibold text-red-400" : "font-semibold text-emerald-400";
+
+      document.getElementById('result-reason').innerText = data.razon || "Evaluación conforme a los parámetros de equilibrio contractual.";
+
+      const patternsContainer = document.getElementById('result-patterns-container');
+      const patternsDiv = document.getElementById('result-patterns');
+      if (data.patrones_activados && data.patrones_activados.length > 0) {
+        patternsContainer.classList.remove('hidden');
+        patternsDiv.innerHTML = data.patrones_activados.map(p => 
+          `<span class="px-2 py-0.5 rounded bg-slate-700 text-indigo-300 font-mono text-[11px]">${p}</span>`
+        ).join('');
+      } else {
+        patternsContainer.classList.add('hidden');
+      }
+
+      lucide.createIcons();
+    }
+
+    // PDF Upload handling
+    let selectedFile = null;
+    function handleFileSelected(event) {
+      const file = event.target.files[0];
+      if (file) {
+        selectedFile = file;
+        document.getElementById('selected-file-label').innerText = `${file.name} (${Math.round(file.size / 1024)} KB)`;
+      }
+    }
+
+    // Drag & Drop
+    const dropzone = document.getElementById('pdf-dropzone');
+    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('border-indigo-500'); });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('border-indigo-500'));
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('border-indigo-500');
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        selectedFile = e.dataTransfer.files[0];
+        document.getElementById('selected-file-label').innerText = `${selectedFile.name} (${Math.round(selectedFile.size / 1024)} KB)`;
+      }
+    });
+
+    async function uploadAndAnalyzePDF() {
+      if (!selectedFile) {
+        alert("Por favor selecciona un archivo PDF primero.");
+        return;
+      }
+
+      const mode = document.getElementById('pdf-mode-select').value;
+      const loader = document.getElementById('pdf-loader');
+      const resultsView = document.getElementById('pdf-results-view');
+      const btn = document.getElementById('btn-upload-pdf');
+
+      loader.classList.remove('hidden');
+      resultsView.classList.add('hidden');
+      btn.disabled = true;
+
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      try {
+        const res = await fetch(`/api/v1/analyze-contract-pdf?modo=${mode}&format=json`, {
+          method: 'POST',
+          headers: {
+            'X-Tenant-ID': getTenant(),
+            'X-API-Key': getKey()
+          },
+          body: formData
+        });
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({ detail: res.statusText }));
+          alert(`Error ${res.status}: ${errData.detail || 'Fallo procesando el PDF'}`);
+          return;
+        }
+
+        const data = await res.json();
+        renderPDFResults(data);
+
+      } catch (err) {
+        alert("Error de conexión: " + err.message);
+      } finally {
+        loader.classList.add('hidden');
+        btn.disabled = false;
+        lucide.createIcons();
+      }
+    }
+
+    function renderPDFResults(data) {
+      const resultsView = document.getElementById('pdf-results-view');
+      resultsView.classList.remove('hidden');
+
+      const resumen = data.resumen || {};
+      const conteo = resumen.conteo || { rojo: 0, amarillo: 0, verde: 0 };
+      const total = resumen.total_clausulas || (conteo.rojo + conteo.amarillo + conteo.verde);
+
+      // Global Card
+      const globalCard = document.getElementById('pdf-global-card');
+      const globalIcon = document.getElementById('pdf-global-icon');
+      const globalLevel = document.getElementById('pdf-global-level');
+
+      globalCard.className = "rounded-xl p-4 border flex items-center gap-3 ";
+      globalIcon.className = "w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold ";
+
+      if (resumen.nivel_global === "rojo") {
+        globalCard.classList.add("bg-red-500/10", "border-red-500/30", "text-red-400");
+        globalIcon.classList.add("bg-red-500/20", "text-red-400");
+        globalIcon.innerHTML = `<i data-lucide="shield-alert" class="w-5 h-5"></i>`;
+        globalLevel.innerText = "Alto Riesgo";
+      } else if (resumen.nivel_global === "amarillo") {
+        globalCard.classList.add("bg-amber-500/10", "border-amber-500/30", "text-amber-400");
+        globalIcon.classList.add("bg-amber-500/20", "text-amber-400");
+        globalIcon.innerHTML = `<i data-lucide="alert-triangle" class="w-5 h-5"></i>`;
+        globalLevel.innerText = "Riesgo Moderado";
+      } else {
+        globalCard.classList.add("bg-emerald-500/10", "border-emerald-500/30", "text-emerald-400");
+        globalIcon.classList.add("bg-emerald-500/20", "text-emerald-400");
+        globalIcon.innerHTML = `<i data-lucide="shield-check" class="w-5 h-5"></i>`;
+        globalLevel.innerText = "Bajo Riesgo";
+      }
+
+      document.getElementById('pdf-risk-score').innerText = `${resumen.score_riesgo || 0}%`;
+      document.getElementById('pdf-total-clauses').innerText = total;
+
+      // Full report button
+      const reportBtn = document.getElementById('btn-view-full-report');
+      if (data.contract_id) {
+        reportBtn.href = `/api/v1/contracts/${data.contract_id}?format=html`;
+        reportBtn.classList.remove('hidden');
+      } else {
+        reportBtn.classList.add('hidden');
+      }
+
+      // Bar
+      const pctRed = total ? (conteo.rojo / total) * 100 : 0;
+      const pctYellow = total ? (conteo.amarillo / total) * 100 : 0;
+      const pctGreen = total ? (conteo.verde / total) * 100 : 0;
+
+      document.getElementById('bar-red').style.width = `${pctRed}%`;
+      document.getElementById('bar-yellow').style.width = `${pctYellow}%`;
+      document.getElementById('bar-green').style.width = `${pctGreen}%`;
+
+      document.getElementById('count-red').innerText = conteo.rojo;
+      document.getElementById('count-yellow').innerText = conteo.amarillo;
+      document.getElementById('count-green').innerText = conteo.verde;
+
+      // Clauses list
+      const listEl = document.getElementById('pdf-clauses-list');
+      const clausulas = data.clausulas || [];
+      if (clausulas.length === 0) {
+        listEl.innerHTML = `<div class="p-4 text-center text-xs text-slate-500">No hay cláusulas para mostrar.</div>`;
+      } else {
+        listEl.innerHTML = clausulas.map((c, i) => {
+          let badgeColor = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+          if (c.nivel === "rojo") badgeColor = "bg-red-500/10 text-red-400 border-red-500/20";
+          if (c.nivel === "amarillo") badgeColor = "bg-amber-500/10 text-amber-400 border-amber-500/20";
+
+          return `
+            <div class="p-3.5 hover:bg-slate-800/40 transition space-y-1.5 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-slate-200">Cláusula #${c.numero || (i + 1)} ${c.titulo ? '- ' + c.titulo : ''}</span>
+                <span class="px-2 py-0.5 rounded-full border text-[10px] font-semibold uppercase ${badgeColor}">${c.nivel}</span>
+              </div>
+              <p class="text-slate-400 leading-relaxed font-serif text-[11px]">${c.texto.slice(0, 200)}${c.texto.length > 200 ? '...' : ''}</p>
+              ${c.razon ? `<p class="text-[10px] text-slate-500 italic">Razón: ${c.razon}</p>` : ''}
+            </div>
+          `;
+        }).join('');
+      }
+
+      lucide.createIcons();
+    }
+
+    // Contract History
+    async function loadContractHistory() {
+      const container = document.getElementById('history-container');
+      container.innerHTML = `<div class="p-8 text-center text-slate-500 text-xs">Cargando contratos...</div>`;
+
+      try {
+        const res = await fetch('/api/v1/contracts?limit=30', {
+          headers: {
+            'X-Tenant-ID': getTenant(),
+            'X-API-Key': getKey()
+          }
+        });
+
+        if (!res.ok) {
+          container.innerHTML = `<div class="p-6 text-center text-xs text-red-400">Error ${res.status}: No se pudo cargar el historial. Revisa tu API Key.</div>`;
+          return;
+        }
+
+        const data = await res.json();
+        const contratos = data.contratos || [];
+
+        if (contratos.length === 0) {
+          container.innerHTML = `<div class="p-8 text-center text-xs text-slate-500">No hay contratos guardados aún para esta organización. Analiza un PDF para ver su historial aquí.</div>`;
+          return;
+        }
+
+        container.innerHTML = contratos.map(c => `
+          <div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-800/40 transition">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="font-semibold text-slate-200 text-xs">${c.nombre_archivo}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full uppercase font-bold ${c.nivel_global === 'rojo' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : (c.nivel_global === 'amarillo' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20')}">${c.nivel_global}</span>
+              </div>
+              <div class="text-[11px] text-slate-400 flex items-center gap-3">
+                <span>Modo: <strong>${c.modo}</strong></span>
+                <span>Cláusulas: <strong>${c.total_clausulas}</strong></span>
+                <span>Riesgo: <strong>${c.score_riesgo}%</strong></span>
+                <span>Fecha: <strong>${new Date(c.created_at).toLocaleString()}</strong></span>
+              </div>
+            </div>
+            <div>
+              <a href="/api/v1/contracts/${c.id}?format=html" target="_blank" class="px-3 py-1.5 rounded-lg bg-indigo-600/10 hover:bg-indigo-600/20 border border-indigo-500/30 text-indigo-300 font-medium text-xs flex items-center gap-1.5 transition">
+                <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                Ver Dashboard HTML
+              </a>
+            </div>
+          </div>
+        `).join('');
+
+        lucide.createIcons();
+
+      } catch (err) {
+        container.innerHTML = `<div class="p-6 text-center text-xs text-red-400">Error: ${err.message}</div>`;
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      updateBadge();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
