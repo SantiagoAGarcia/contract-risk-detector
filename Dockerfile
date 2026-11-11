@@ -21,5 +21,4 @@ USER appuser
 
 EXPOSE 8000
 
-# OPENAI_API_KEY se inyecta en tiempo de ejecución: docker run -e OPENAI_API_KEY=...
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "start.py"]

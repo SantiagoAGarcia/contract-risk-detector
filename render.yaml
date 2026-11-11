@@ -1,0 +1,21 @@
+databases:
+  - name: contract-risk-db
+    databaseName: contracts
+    user: admin
+    plan: free
+
+services:
+  - type: web
+    name: contract-risk-detector
+    runtime: docker
+    plan: free
+    branch: main
+    envVars:
+      - key: ADMIN_DATABASE_URL
+        fromDatabase:
+          name: contract-risk-db
+          property: connectionString
+      - key: APP_DB_PASSWORD
+        generateValue: true
+      - key: PORT
+        value: 8000
